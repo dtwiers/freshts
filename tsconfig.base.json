@@ -1,0 +1,31 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@freshts/array": ["libs/array/src/index.ts"],
+      "@freshts/branded": ["libs/branded/src/index.ts"],
+      "@freshts/compose": ["libs/compose/src/index.ts"],
+      "@freshts/yuge": ["libs/yuge/src/index.ts"],
+      "@freshts/nonempty-array": ["libs/nonempty-array/src/index.ts"],
+      "@freshts/option": ["libs/option/src/index.ts"],
+      "@freshts/record": ["libs/record/src/index.ts"],
+      "@freshts/result": ["libs/result/src/index.ts"],
+      "@freshts/state": ["libs/state/src/index.ts"],
+      "@freshts/string-parser": ["libs/string-parser/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "projects": {
+    "array": "libs/array",
+    "branded": "libs/branded",
+    "compose": "libs/compose",
+    "yuge": "libs/yuge",
+    "nonempty-array": "libs/nonempty-array",
+    "option": "libs/option",
+    "record": "libs/record",
+    "result": "libs/result",
+    "state": "libs/state",
+    "string-parser": "libs/string-parser"
+  }
+}

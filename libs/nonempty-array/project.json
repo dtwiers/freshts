@@ -1,0 +1,32 @@
+{
+  "root": "libs/nonempty-array",
+  "sourceRoot": "libs/nonempty-array/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/nonempty-array",
+        "main": "libs/nonempty-array/src/index.ts",
+        "tsConfig": "libs/nonempty-array/tsconfig.lib.json",
+        "assets": ["libs/nonempty-array/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/nonempty-array/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/nonempty-array"],
+      "options": {
+        "jestConfig": "libs/nonempty-array/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

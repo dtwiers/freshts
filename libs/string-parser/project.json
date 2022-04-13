@@ -1,0 +1,32 @@
+{
+  "root": "libs/string-parser",
+  "sourceRoot": "libs/string-parser/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/string-parser",
+        "main": "libs/string-parser/src/index.ts",
+        "tsConfig": "libs/string-parser/tsconfig.lib.json",
+        "assets": ["libs/string-parser/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/string-parser/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/string-parser"],
+      "options": {
+        "jestConfig": "libs/string-parser/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
