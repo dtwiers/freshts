@@ -1,1 +1,1 @@
-export * from './lib/branded';
+export * from './branded-object';

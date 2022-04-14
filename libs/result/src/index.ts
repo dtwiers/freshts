@@ -1,1 +1,4 @@
-export * from './lib/result';
+export * from './flatMap'
+export * from './map';
+export * from './result';
+export * from './types';

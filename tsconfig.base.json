@@ -14,6 +14,8 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
     "paths": {
       "@freshts/array": ["libs/array/src/index.ts"],
       "@freshts/branded": ["libs/branded/src/index.ts"],
