@@ -1,4 +1,4 @@
-import { applyWith } from './apply-to';
+import { applyWith } from './apply-with';
 
 export const branch =
   <InputType, Outputs extends unknown[]>(
