@@ -1,0 +1,32 @@
+{
+  "root": "libs/utility/arbitrate",
+  "sourceRoot": "libs/utility/arbitrate/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/utility/arbitrate",
+        "main": "libs/utility/arbitrate/src/index.ts",
+        "tsConfig": "libs/utility/arbitrate/tsconfig.lib.json",
+        "assets": ["libs/utility/arbitrate/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/utility/arbitrate/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/utility/arbitrate"],
+      "options": {
+        "jestConfig": "libs/utility/arbitrate/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

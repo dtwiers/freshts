@@ -1,0 +1,32 @@
+{
+  "root": "libs/utility/branded",
+  "sourceRoot": "libs/utility/branded/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/utility/branded",
+        "main": "libs/utility/branded/src/index.ts",
+        "tsConfig": "libs/utility/branded/tsconfig.lib.json",
+        "assets": ["libs/utility/branded/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/utility/branded/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/utility/branded"],
+      "options": {
+        "jestConfig": "libs/utility/branded/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

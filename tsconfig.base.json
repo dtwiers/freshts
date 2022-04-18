@@ -20,16 +20,18 @@
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
-      "@freshts/array": ["libs/array/src/index.ts"],
-      "@freshts/branded": ["libs/branded/src/index.ts"],
-      "@freshts/compose": ["libs/compose/src/index.ts"],
-      "@freshts/yuge": ["libs/yuge/src/index.ts"],
-      "@freshts/nonempty-array": ["libs/nonempty-array/src/index.ts"],
-      "@freshts/option": ["libs/option/src/index.ts"],
-      "@freshts/record": ["libs/record/src/index.ts"],
-      "@freshts/result": ["libs/result/src/index.ts"],
-      "@freshts/state": ["libs/state/src/index.ts"],
-      "@freshts/string-parser": ["libs/string-parser/src/index.ts"]
+      "@freshts/arbitrate": ["libs/utility/arbitrate/src/index.ts"],
+      "@freshts/parse-string": ["libs/language/parser-combinator/src/index.ts"],
+      "@freshts/state-store": ["libs/state/store/src/index.ts"],
+      "@freshts/utility-array": ["libs/utility/array/src/index.ts"],
+      "@freshts/utility-branded": ["libs/utility/branded/src/index.ts"],
+      "@freshts/utility-compose": ["libs/utility/compose/src/index.ts"],
+      "@freshts/utility-nonempty-array": [
+        "libs/utility/nonempty-array/src/index.ts"
+      ],
+      "@freshts/utility-option": ["libs/utility/option/src/index.ts"],
+      "@freshts/utility-record": ["libs/utility/record/src/index.ts"],
+      "@freshts/utility-result": ["libs/utility/result/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

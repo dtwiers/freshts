@@ -1,0 +1,32 @@
+{
+  "root": "libs/utility/compose",
+  "sourceRoot": "libs/utility/compose/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/utility/compose",
+        "main": "libs/utility/compose/src/index.ts",
+        "tsConfig": "libs/utility/compose/tsconfig.lib.json",
+        "assets": ["libs/utility/compose/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/utility/compose/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/utility/compose"],
+      "options": {
+        "jestConfig": "libs/utility/compose/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
