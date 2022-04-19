@@ -21,7 +21,9 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@freshts/arbitrate": ["libs/utility/arbitrate/src/index.ts"],
-      "@freshts/parse-string": ["libs/language/parser-combinator/src/index.ts"],
+      "@freshts/cupid-combinator": [
+        "libs/language/cupid-combinator/src/index.ts"
+      ],
       "@freshts/state-store": ["libs/state/store/src/index.ts"],
       "@freshts/utility-array": ["libs/utility/array/src/index.ts"],
       "@freshts/utility-branded": ["libs/utility/branded/src/index.ts"],

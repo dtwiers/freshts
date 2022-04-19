@@ -1,7 +1,7 @@
 {
   "version": 2,
   "projects": {
-    "language-parser-combinator": "libs/language/parser-combinator",
+    "language-cupid-combinator": "libs/language/cupid-combinator",
     "state-store": "libs/state/store",
     "utility-arbitrate": "libs/utility/arbitrate",
     "utility-array": "libs/utility/array",

@@ -1,0 +1,32 @@
+{
+  "root": "libs/language/cupid-combinator",
+  "sourceRoot": "libs/language/cupid-combinator/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/language/cupid-combinator",
+        "main": "libs/language/cupid-combinator/src/index.ts",
+        "tsConfig": "libs/language/cupid-combinator/tsconfig.lib.json",
+        "assets": ["libs/language/cupid-combinator/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/language/cupid-combinator/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/language/cupid-combinator"],
+      "options": {
+        "jestConfig": "libs/language/cupid-combinator/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
