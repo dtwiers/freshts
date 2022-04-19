@@ -1,9 +1,12 @@
+export type EmptyBrandedObject<Brand extends PropertyKey> = {
+  __type: Brand;
+};
+
 export type BrandedObject<
   T extends Record<string, unknown>,
   Brand extends PropertyKey
-> = T & {
-  __type: Brand;
-};
+> = T & EmptyBrandedObject<Brand>;
+
 export const brandObject =
   <Brand extends PropertyKey>(brand: Brand) =>
   <T extends Record<string, unknown>>(obj: T) => ({
