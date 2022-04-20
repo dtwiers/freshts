@@ -1,5 +1,5 @@
 {
   "name": "@freshts/cupid-combinator",
   "version": "0.0.1",
-  "type": "commonjs"
+  "sideEffects": false
 }

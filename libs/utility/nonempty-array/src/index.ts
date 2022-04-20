@@ -1,1 +1,1 @@
-export * from './lib/nonempty-array';
+export * from './types';
