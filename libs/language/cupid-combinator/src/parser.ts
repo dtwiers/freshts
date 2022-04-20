@@ -19,3 +19,6 @@ export const isSuccess = <Value>(
 export const isErr = <Value>(
   parseResult: ParseResult<Value>
 ): parseResult is Failure<ParseErr> => isFailure(parseResult);
+
+export const isEnd = (input: string, cursor: number): boolean =>
+  cursor >= input.length;

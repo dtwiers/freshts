@@ -1,4 +1,4 @@
-import { err, succeed } from './parser';
+import { err, isEnd, succeed } from './parser';
 import { Parser } from './types';
 
 export const matchExact =
@@ -59,3 +59,16 @@ export const matchRegex =
     });
   };
 
+export const anyCharacter =
+  (onEOF: () => string): Parser<string> =>
+  (input, cursor) => {
+    if (isEnd(input, cursor)) {
+      return err({ expected: onEOF(), failedAtCursor: cursor, input });
+    }
+    return succeed({
+      input,
+      inputCursor: cursor,
+      outputCursor: cursor + 1,
+      value: input.charAt(cursor),
+    });
+  };
