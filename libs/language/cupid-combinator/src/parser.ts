@@ -8,7 +8,7 @@ import {
 } from '@freshts/utility-result';
 import type { ParseErr, ParseOk, ParseResult } from './types';
 
-export const succeed: <Value>(input: ParseOk<Value>) => ParseResult<Value> = ok;
+export const succeed: <Value>(input: ParseOk<Value>) => Ok<ParseOk<Value>> = ok;
 
 export const err: (input: ParseErr) => Failure<ParseErr> = fail;
 
