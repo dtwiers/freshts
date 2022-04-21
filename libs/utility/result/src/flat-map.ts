@@ -22,3 +22,18 @@ export const flatMapFailure =
     }
     return flatMapFn(input.failure);
   };
+
+export const flatMapOkIgnore =
+  <OkType, FailureType, SecondOkType>(
+    flatMapFn: (input: OkType) => Result<SecondOkType, FailureType>
+  ) =>
+  (input: Result<OkType, FailureType>): Result<OkType, FailureType> => {
+    if (isFailure(input)) {
+      return input;
+    }
+    const fnResult = flatMapFn(input.ok);
+    if (isFailure(fnResult)) {
+      return fnResult;
+    }
+    return input;
+  }

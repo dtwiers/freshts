@@ -1,6 +1,7 @@
 import { flow } from '@freshts/utility-compose';
-import { mapOk } from '@freshts/utility-result';
-import { err, succeed } from './parser';
+import { NonEmptyArray } from '@freshts/utility-nonempty-array';
+import { flatMapOk, flatMapOkIgnore, mapOk } from '@freshts/utility-result';
+import { err, isSuccess, succeed } from './parser';
 import { Parser } from './types';
 
 export const peek = <Value>(parser: Parser<Value>): Parser<Value> =>
@@ -13,7 +14,10 @@ export const peek = <Value>(parser: Parser<Value>): Parser<Value> =>
   );
 
 export const takeUntil =
-  (predicate: (slicedString: string) => boolean): Parser<string> =>
+  (
+    predicate: (slicedString: string) => boolean,
+    onErr: () => string
+  ): Parser<string> =>
   (input, cursor) => {
     for (let c = cursor; c < input.length; c++) {
       if (predicate(input.slice(c))) {
@@ -24,7 +28,28 @@ export const takeUntil =
           value: input.slice(cursor, c),
         });
       }
-      // TODO: fix expected here
-      return err({ input, failedAtCursor: input.length - 1, expected: '' });
     }
+    return err({ input, failedAtCursor: input.length - 1, expected: onErr() });
+  };
+
+export const between =
+  (left: Parser<unknown>, right: Parser<unknown>) =>
+  <Value>(parser: Parser<Value>): Parser<Value> =>
+    flow(
+      left,
+      flatMapOk((result) => parser(result.input, result.outputCursor)),
+      flatMapOkIgnore((result) => right(result.input, result.outputCursor))
+    );
+
+export const atLeastOneUntilTerminator =
+  <Value>(
+    parser: Parser<Value>,
+    terminator: Parser<unknown>
+  ): Parser<NonEmptyArray<Value>> =>
+  (input, cursor) => {
+    const firstResult = parser(input, cursor);
+    if (isSuccess(firstResult)) {
+      // TODO: figure this logic out
+    }
+    return firstResult;
   };
