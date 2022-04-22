@@ -6,9 +6,19 @@ import {
   Ok,
   ok,
 } from '@freshts/utility-result';
-import type { ParseErr, ParseOk, ParseResult } from './types';
+import type { ParseErr, ParseOk, Parser, ParseResult } from './types';
 
 export const succeed: <Value>(input: ParseOk<Value>) => Ok<ParseOk<Value>> = ok;
+
+export const succeedParser =
+  <Value>(value: Value, width = 0): Parser<Value> =>
+  (input, cursor) =>
+    succeed({
+      input,
+      inputCursor: cursor,
+      outputCursor: cursor + width,
+      value,
+    });
 
 export const err: (input: ParseErr) => Failure<ParseErr> = fail;
 

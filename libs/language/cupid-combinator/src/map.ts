@@ -1,6 +1,6 @@
 import { flow } from '@freshts/utility-compose';
-import { mapOk } from '@freshts/utility-result';
-import { Parser } from './types';
+import { mapFailure, mapOk } from '@freshts/utility-result';
+import { ParseErr, Parser } from './types';
 
 export const mapSuccess =
   <OldValue, NewValue>(mapFn: (input: OldValue) => NewValue) =>
@@ -9,3 +9,8 @@ export const mapSuccess =
       parser,
       mapOk((val) => ({ ...val, value: mapFn(val.value) }))
     );
+
+export const mapErr =
+  (mapFn: (input: ParseErr) => ParseErr) =>
+  <Value>(parser: Parser<Value>): Parser<Value> =>
+    flow(parser, mapFailure(mapFn));

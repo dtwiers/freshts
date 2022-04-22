@@ -1,7 +1,9 @@
+import { pipe } from '@freshts/utility-compose';
+import { orElse } from './or-else';
 import { err, isEnd, succeed } from './parser';
 import { Parser } from './types';
 
-export const matchExact =
+export const matchString =
   <Value extends string>(value: Value): Parser<Value> =>
   (input, cursor) => {
     if (input.substring(cursor, cursor + value.length) === value) {
@@ -19,7 +21,7 @@ export const matchExact =
     });
   };
 
-export const matchIgnoreCase =
+export const matchStringIgnoreCase =
   (value: string): Parser<string> =>
   (input, cursor) => {
     if (
@@ -72,3 +74,19 @@ export const anyCharacter =
       value: input.charAt(cursor),
     });
   };
+
+export const oneOf = (
+  firstValue: string,
+  ...values: string[]
+): Parser<string> => {
+  const parsers = values.map(matchString);
+  return parsers.reduce(
+    (prev, curr) => orElse(() => curr)(prev),
+    matchString(firstValue)
+  );
+};
+
+// TODO: This one requires more thought about character limit. Take a character count in params?
+// export const notMatchExact = (value: string): Parser<string> => (input, cursor) => {
+//   if (input.substring(cursor, ).)
+// }
