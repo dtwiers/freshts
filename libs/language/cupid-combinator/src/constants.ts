@@ -1,6 +1,6 @@
 import { pipe } from '@freshts/utility-compose';
 import { orElse } from './or-else';
-import { err, isEnd, succeed } from './parser';
+import { err, isEnd, succeed, succeedParser } from './parser';
 import { Parser } from './types';
 
 export const matchString =
@@ -86,7 +86,20 @@ export const oneOf = (
   );
 };
 
-// TODO: This one requires more thought about character limit. Take a character count in params?
-// export const notMatchExact = (value: string): Parser<string> => (input, cursor) => {
-//   if (input.substring(cursor, ).)
-// }
+export const notMatchChar =
+  (value: string): Parser<string> =>
+  (input, cursor) => {
+    if (input.substring(cursor, cursor + 1) !== value) {
+      return succeed({
+        input,
+        inputCursor: cursor,
+        outputCursor: cursor + 1,
+        value: input.substring(cursor, cursor + 1),
+      });
+    }
+    return err({
+      expected: `not ${value}`,
+      failedAtCursor: cursor,
+      input,
+    });
+  };
