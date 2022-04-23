@@ -10,9 +10,9 @@ export const runParser =
       mapOk(({ value }) => value)
     );
 
-export const showError = (input: string, error: ParseErr): string => {
-  const lines = input.split('\n');
-  const errorLines = input.slice(0, error.failedAtCursor).split('\n');
+export const showError = (error: ParseErr): string => {
+  const lines = error.input.split('\n');
+  const errorLines = error.input.slice(0, error.failedAtCursor).split('\n');
   const errorRow = errorLines.length;
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const errorColumn = errorLines[errorLines.length - 1]?.length ?? 0;

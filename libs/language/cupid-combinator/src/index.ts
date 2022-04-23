@@ -6,4 +6,5 @@ export * from './many';
 export * from './map';
 export * from './or-else';
 export * from './parser';
+export * from './run';
 export * from './types';
