@@ -9,7 +9,8 @@ export type ParseOk<T> = {
 
 export type ParseErr = {
   input: string;
-  failedAtCursor: number;
+  failedAtCursorStart: number;
+  failedAtCursorEnd: number;
   expected: string;
 };
 
