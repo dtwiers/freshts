@@ -54,8 +54,10 @@ const formatCodeFrame = ({
   // TODO: intersperse lines with caret lines
   const caretLines = affectedLines.map((line, idx, arr) => {
     const rawCarets = line.replace(/./g, '^');
-    
-  })
+    if (idx === 0) [
+      rawCarets.replace()
+    ]
+  });
 };
 
 export const showError =

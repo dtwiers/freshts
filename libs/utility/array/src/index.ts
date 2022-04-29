@@ -1,1 +1,1 @@
-export * from './lib/array';
+export * from './chunk';
