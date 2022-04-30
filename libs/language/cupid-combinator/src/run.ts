@@ -1,3 +1,4 @@
+import { mapArray, mapHead, mapLast } from '@freshts/utility-array';
 import { pipe } from '@freshts/utility-compose';
 import { mapOk } from '@freshts/utility-result';
 import { ParseErr, Parser } from './types';
@@ -29,12 +30,10 @@ const locateCursor = (input: string, cursor: number) => {
   return { line, column };
 };
 
-const defaultShowErrorOptions: Required<ShowErrorOptions> = {
-  linesBefore: 3,
-  linesAfter: 2,
-};
+export const formatLineNumber = (maxWidth: number) => (lineNumber?: number) =>
+  `${(lineNumber?.toString() ?? '').padStart(maxWidth + 1, ' ')} | `;
 
-const formatCodeFrame = ({
+export const formatCodeFrame = ({
   input,
   linesBefore = 3,
   linesAfter = 2,
@@ -51,30 +50,44 @@ const formatCodeFrame = ({
   );
   const after = lines.splice(end.line, end.line + linesAfter);
   const affectedLines = lines.splice(start.line, end.line);
-  // TODO: intersperse lines with caret lines
-  const caretLines = affectedLines.map((line, idx, arr) => {
-    const rawCarets = line.replace(/./g, '^');
-    if (idx === 0) [
-      rawCarets.replace()
-    ]
-  });
+  const caretLines = pipe(
+    affectedLines,
+    mapArray((line) => line.replace(/./g, '^')),
+    mapHead((head) => ' '.repeat(start.column) + head.slice(start.column)),
+    mapLast((last) => last.slice(0, end.column) + ' ' + message)
+  );
+  const maxLineNumber = end.line + linesAfter;
+  const lineNumberWidth = `${maxLineNumber}`.length;
+  const lineFormatter = formatLineNumber(lineNumberWidth);
+  const preformattedAffectedLines = affectedLines.flatMap((line, idx) => [
+    lineFormatter(idx + start.line) + line,
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    lineFormatter() + caretLines[idx]!,
+  ]);
+
+  // firstLine
+  return [
+    ...before.map(
+      (line, idx) => lineFormatter(start.line - linesBefore + idx) + line
+    ),
+    ...preformattedAffectedLines,
+    ...after.map((line, idx) => lineFormatter(end.line + 1 + idx) + line),
+  ].join('\n');
+};
+
+const defaultShowErrorOptions: Required<ShowErrorOptions> = {
+  linesBefore: 3,
+  linesAfter: 2,
 };
 
 export const showError =
-  (options: ShowErrorOptions) =>
-  (error: ParseErr): string => {
-    const lines = error.input.split('\n');
-    const errorLines = error.input
-      .slice(0, error.failedAtCursorStart)
-      .split('\n');
-    const errorRow = errorLines.length;
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const errorColumn = errorLines[errorLines.length - 1]?.length ?? 0;
-
-    // const;
-    return [
-      lines[errorRow - 1],
-      `${' '.repeat(errorColumn)}^`,
-      `expected: ${error.expected}`,
-    ].join('\n');
-  };
+  (options: ShowErrorOptions = defaultShowErrorOptions) =>
+  (error: ParseErr): string =>
+    formatCodeFrame({
+      ...defaultShowErrorOptions,
+      ...options,
+      message: `expected: ${error.expected}`,
+      errorStart: error.failedAtCursorStart,
+      errorEnd: error.failedAtCursorEnd,
+      input: error.input,
+    });

@@ -1,6 +1,5 @@
-import { pipe } from '@freshts/utility-compose';
 import { orElse } from './or-else';
-import { err, isEnd, succeed, succeedParser } from './parser';
+import { err, isEnd, succeed } from './parser';
 import { Parser } from './types';
 
 export const matchString =
@@ -17,7 +16,8 @@ export const matchString =
     return err({
       input,
       expected: value,
-      failedAtCursor: cursor,
+      failedAtCursorStart: cursor,
+      failedAtCursorEnd: Math.min(input.length, cursor + value.length),
     });
   };
 
@@ -37,7 +37,8 @@ export const matchStringIgnoreCase =
     }
     return err({
       input,
-      failedAtCursor: cursor,
+      failedAtCursorStart: cursor,
+      failedAtCursorEnd: Math.min(input.length, cursor + value.length),
       expected: value,
     });
   };
@@ -56,7 +57,8 @@ export const matchRegex =
     }
     return err({
       input,
-      failedAtCursor: cursor,
+      failedAtCursorStart: cursor,
+      failedAtCursorEnd: cursor + 1,
       expected,
     });
   };
@@ -65,7 +67,12 @@ export const anyCharacter =
   (onEOF: () => string): Parser<string> =>
   (input, cursor) => {
     if (isEnd(input, cursor)) {
-      return err({ expected: onEOF(), failedAtCursor: cursor, input });
+      return err({
+        expected: onEOF(),
+        failedAtCursorStart: cursor,
+        failedAtCursorEnd: cursor + 1,
+        input,
+      });
     }
     return succeed({
       input,
@@ -99,7 +106,8 @@ export const notMatchChar =
     }
     return err({
       expected: `not ${value}`,
-      failedAtCursor: cursor,
+      failedAtCursorStart: cursor,
+      failedAtCursorEnd: cursor + 1,
       input,
     });
   };

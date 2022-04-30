@@ -33,7 +33,12 @@ export const takeUntil =
         });
       }
     }
-    return err({ input, failedAtCursor: input.length - 1, expected: onErr() });
+    return err({
+      input,
+      failedAtCursorStart: input.length - 1,
+      failedAtCursorEnd: input.length,
+      expected: onErr(),
+    });
   };
 
 export const between =

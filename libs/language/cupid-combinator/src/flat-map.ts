@@ -1,5 +1,5 @@
 import { flow } from '@freshts/utility-compose';
-import { flatMapOk, flatMapOkIgnore, mapOk } from '@freshts/utility-result';
+import { flatMapOk } from '@freshts/utility-result';
 import { isSuccess, succeed } from './parser';
 import type { Parser } from './types';
 

@@ -1,13 +1,12 @@
-import { runParser, showError } from './run';
-import { anyCharacter, matchString } from './constants';
-import { minMaxTimes } from './many';
-import { flatMapSuccess } from './flat-map';
-import * as FC from 'fast-check';
-import { mapFailure, mapOk, ok } from '@freshts/utility-result';
 import { applyWith, pipe } from '@freshts/utility-compose';
+import { mapFailure, ok } from '@freshts/utility-result';
+import * as FC from 'fast-check';
+import { anyCharacter, matchString } from './constants';
+import { flatMapSuccess } from './flat-map';
+import { formatCodeFrame, runParser, showError } from './run';
 
 describe('runParser', () => {
-  it('outputs success or fail', () => {
+  xit('outputs success or fail', () => {
     FC.assert(
       FC.property(FC.string(), FC.string(), (inputString, match) => {
         if (inputString === match) {
@@ -26,18 +25,35 @@ describe('runParser', () => {
 
 describe('showError', () => {
   it('shows the error in the right place', () => {
-    FC.assert(
-      FC.property(FC.string({ minLength: 8 }), (inputString) => {
-        const failure = pipe(
-          matchString(inputString.concat('')),
-          flatMapSuccess(() => anyCharacter(() => 'an extra character')),
-          runParser,
-          applyWith(inputString),
-          mapFailure(showError)
-        );
-        console.log(failure.__type === 'Failure' ? failure.failure : '');
-        expect(failure).toEqual('asdf');
-      })
+    const failure = pipe(
+      matchString('foo'),
+      runParser,
+      applyWith('bar'),
+      mapFailure(showError())
     );
+    expect(failure).toBe('asdf');
+    // FC.assert(
+    //   FC.property(FC.string({ minLength: 8 }), (inputString) => {
+    //     const failure = pipe(
+    //       matchString(inputString.concat('')),
+    //       flatMapSuccess(() => anyCharacter(() => 'an extra character')),
+    //       runParser,
+    //       applyWith(inputString),
+    //       mapFailure(showError())
+    //     );
+    //     console.log(failure.__type === 'Failure' ? failure.failure : '');
+    //     expect(failure).toEqual('asdf');
+    //   })
+    // );
   });
+});
+
+describe('formatCodeFrame', () => {
+  const result = formatCodeFrame({
+    input: 'asdf\nasdf\nasdf',
+    message: 'fdsa',
+    errorStart: 6,
+    errorEnd: 8,
+  });
+  expect(result).toBe('asdf');
 });
