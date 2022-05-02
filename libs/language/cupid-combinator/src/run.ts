@@ -42,21 +42,22 @@ export const formatCodeFrame = ({
   message,
 }: FormatCodeFrameOptions) => {
   const lines = input.split('\n');
+  const modifiedErrorEnd = Math.max(errorEnd, errorStart + 1);
   const start = locateCursor(input, errorStart);
-  const end = locateCursor(input, errorEnd);
-  const before = lines.splice(
+  const end = locateCursor(input, modifiedErrorEnd);
+  const before = lines.slice(
     Math.max(0, start.line - 1 - linesBefore),
     start.line - 1
   );
-  const after = lines.splice(end.line, end.line + linesAfter);
-  const affectedLines = lines.splice(start.line, end.line);
+  const after = lines.slice(end.line, end.line + linesAfter);
+  const affectedLines = lines.slice(start.line - 1, end.line);
   const caretLines = pipe(
     affectedLines,
     mapArray((line) => line.replace(/./g, '^')),
     mapHead((head) => ' '.repeat(start.column) + head.slice(start.column)),
     mapLast((last) => last.slice(0, end.column) + ' ' + message)
   );
-  const maxLineNumber = end.line + linesAfter;
+  const maxLineNumber = Math.min(end.line + linesAfter, lines.length);
   const lineNumberWidth = `${maxLineNumber}`.length;
   const lineFormatter = formatLineNumber(lineNumberWidth);
   const preformattedAffectedLines = affectedLines.flatMap((line, idx) => [
@@ -65,14 +66,17 @@ export const formatCodeFrame = ({
     lineFormatter() + caretLines[idx]!,
   ]);
 
-  // firstLine
-  return [
-    ...before.map(
-      (line, idx) => lineFormatter(start.line - linesBefore + idx) + line
-    ),
-    ...preformattedAffectedLines,
-    ...after.map((line, idx) => lineFormatter(end.line + 1 + idx) + line),
-  ].join('\n');
+  const newBefore = before.map(
+    (line, idx) =>
+      lineFormatter(Math.max(0, start.line - linesBefore) + 1 + idx) + line
+  );
+  const newAfter = after.map(
+    (line, idx) => lineFormatter(end.line + 1 + idx) + line
+  );
+  const result = [...newBefore, ...preformattedAffectedLines, ...newAfter].join(
+    '\n'
+  );
+  return result;
 };
 
 const defaultShowErrorOptions: Required<ShowErrorOptions> = {

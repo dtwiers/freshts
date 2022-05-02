@@ -1,18 +1,16 @@
 import { applyWith, pipe } from '@freshts/utility-compose';
-import { mapFailure, ok } from '@freshts/utility-result';
+import { fail, mapFailure, ok } from '@freshts/utility-result';
 import * as FC from 'fast-check';
 import { anyCharacter, matchString } from './constants';
 import { flatMapSuccess } from './flat-map';
-import { formatCodeFrame, runParser, showError } from './run';
+import { formatCodeFrame, formatLineNumber, runParser, showError } from './run';
 
 describe('runParser', () => {
-  xit('outputs success or fail', () => {
+  it('outputs success or fail', () => {
     FC.assert(
       FC.property(FC.string(), FC.string(), (inputString, match) => {
-        if (inputString === match) {
-          expect(runParser(matchString(match))(inputString)).toEqual(
-            ok(inputString)
-          );
+        if (inputString.startsWith(match)) {
+          expect(runParser(matchString(match))(inputString)).toEqual(ok(match));
         } else {
           expect(runParser(matchString(match))(inputString).__type).toBe(
             'Failure'
@@ -27,33 +25,37 @@ describe('showError', () => {
   it('shows the error in the right place', () => {
     const failure = pipe(
       matchString('foo'),
+      flatMapSuccess(() => matchString('bar')),
       runParser,
-      applyWith('bar'),
+      applyWith('foobaz'),
       mapFailure(showError())
     );
-    expect(failure).toBe('asdf');
-    // FC.assert(
-    //   FC.property(FC.string({ minLength: 8 }), (inputString) => {
-    //     const failure = pipe(
-    //       matchString(inputString.concat('')),
-    //       flatMapSuccess(() => anyCharacter(() => 'an extra character')),
-    //       runParser,
-    //       applyWith(inputString),
-    //       mapFailure(showError())
-    //     );
-    //     console.log(failure.__type === 'Failure' ? failure.failure : '');
-    //     expect(failure).toEqual('asdf');
-    //   })
-    // );
+    expect(failure).toEqual(
+      fail([' 1 | foobaz', '   |    ^^^ expected: bar'].join('\n'))
+    );
   });
 });
 
 describe('formatCodeFrame', () => {
-  const result = formatCodeFrame({
-    input: 'asdf\nasdf\nasdf',
-    message: 'fdsa',
-    errorStart: 6,
-    errorEnd: 8,
+  it('formats 3 lines', () => {
+    const result = formatCodeFrame({
+      input: 'asd1\nasd2\nasd3',
+      message: 'fdsa',
+      errorStart: 6,
+      errorEnd: 8,
+    });
+    expect(result).toBe(
+      [' 1 | asd1', ' 2 | asd2', '   |  ^^ fdsa', ' 3 | asd3'].join('\n')
+    );
   });
-  expect(result).toBe('asdf');
+});
+
+describe('formatLineNumber', () => {
+  it('adds a line number', () => {
+    expect(formatLineNumber(3)(3)).toBe('   3 | ');
+  });
+
+  it('adds a space', () => {
+    expect(formatLineNumber(3)()).toBe('     | ');
+  });
 });
