@@ -33,7 +33,14 @@
       ],
       "@freshts/utility-option": ["libs/utility/option/src/index.ts"],
       "@freshts/utility-record": ["libs/utility/record/src/index.ts"],
-      "@freshts/utility-result": ["libs/utility/result/src/index.ts"]
+      "@freshts/utility-result": ["libs/utility/result/src/index.ts"],
+      "@honest-lisp/core": ["libs/language/honest-lisp-core/src/index.ts"],
+      "@honest-lisp/data": ["libs/language/honest-lisp-data/src/index.ts"],
+      "@honest-lisp/parser": ["libs/language/honest-lisp-parser/src/index.ts"],
+      "@honest-lisp/resolver": [
+        "libs/language/honest-lisp-resolver/src/index.ts"
+      ],
+      "@honest-lisp/stdlib": ["libs/language/honest-lisp-stdlib/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

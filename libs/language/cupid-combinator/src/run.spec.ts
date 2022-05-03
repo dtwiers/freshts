@@ -1,7 +1,7 @@
 import { applyWith, pipe } from '@freshts/utility-compose';
 import { fail, mapFailure, ok } from '@freshts/utility-result';
 import * as FC from 'fast-check';
-import { anyCharacter, matchString } from './constants';
+import { matchString } from './constants';
 import { flatMapSuccess } from './flat-map';
 import { formatCodeFrame, formatLineNumber, runParser, showError } from './run';
 

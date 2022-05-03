@@ -1,0 +1,32 @@
+{
+  "root": "libs/language/honest-lisp-data",
+  "sourceRoot": "libs/language/honest-lisp-data/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/language/honest-lisp-data",
+        "main": "libs/language/honest-lisp-data/src/index.ts",
+        "tsConfig": "libs/language/honest-lisp-data/tsconfig.lib.json",
+        "assets": ["libs/language/honest-lisp-data/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/language/honest-lisp-data/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/language/honest-lisp-data"],
+      "options": {
+        "jestConfig": "libs/language/honest-lisp-data/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

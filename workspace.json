@@ -2,6 +2,11 @@
   "version": 2,
   "projects": {
     "language-cupid-combinator": "libs/language/cupid-combinator",
+    "language-honest-lisp-core": "libs/language/honest-lisp-core",
+    "language-honest-lisp-data": "libs/language/honest-lisp-data",
+    "language-honest-lisp-parser": "libs/language/honest-lisp-parser",
+    "language-honest-lisp-resolver": "libs/language/honest-lisp-resolver",
+    "language-honest-lisp-stdlib": "libs/language/honest-lisp-stdlib",
     "state-store": "libs/state/store",
     "utility-arbitrate": "libs/utility/arbitrate",
     "utility-array": "libs/utility/array",
