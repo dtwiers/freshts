@@ -1,24 +1,25 @@
-import { BrandedObject } from '@freshts/utility-branded';
+import { BrandedObject, EmptyBrandedObject } from '@freshts/utility-branded';
+import * as Tags from './ast.tags';
 
 export type NumberLiteral = BrandedObject<
   {
     value: number;
   },
-  'NumberLiteral'
+  typeof Tags.NUMBER_LITERAL
 >;
 
 export type StringLiteral = BrandedObject<
   {
     value: string;
   },
-  'StringLiteral'
+  typeof Tags.STRING_LITERAL
 >;
 
 export type BooleanLiteral = BrandedObject<
   {
     value: boolean;
   },
-  'BooleanLiteral'
+  typeof Tags.BOOLEAN_LITERAL
 >;
 
 export type RegExpLiteral = BrandedObject<
@@ -26,28 +27,33 @@ export type RegExpLiteral = BrandedObject<
     pattern: string;
     flags: string;
   },
-  'RegExpLiteral'
+  typeof Tags.REGEXP_LITERAL
 >;
 
 export type ArrayLiteral = BrandedObject<
   {
     value: unknown[];
   },
-  'ArrayLiteral'
+  typeof Tags.ARRAY_LITERAL
 >;
 
 export type ObjectLiteral = BrandedObject<
   {
     value: Record<string, unknown>;
   },
-  'ObjectLiteral'
+  typeof Tags.OBJECT_LITERAL
+>;
+
+export type NullLiteral = EmptyBrandedObject<typeof Tags.NULL_LITERAL>;
+export type UndefinedLiteral = EmptyBrandedObject<
+  typeof Tags.UNDEFINED_LITERAL
 >;
 
 export type Identifier = BrandedObject<
   {
     name: string;
   },
-  'Identifier'
+  typeof Tags.IDENTIFIER
 >;
 
 export type MemberExpression = BrandedObject<
@@ -55,25 +61,25 @@ export type MemberExpression = BrandedObject<
     property: Expression;
     object: Expression;
   },
-  'MemberExpression'
+  typeof Tags.MEMBER_EXPRESSION
 >;
 
-export type Lambda = BrandedObject<
+export type LambdaDefinition = BrandedObject<
+  {
+    identifier: Expression;
+    parameterIdentifiers: string[];
+    body: Expression;
+  },
+  typeof Tags.LAMBDA_DEFINITION
+>;
+
+export type MacroDefinition = BrandedObject<
   {
     identifier: string;
     parameterIdentifiers: string[];
     body: Expression;
   },
-  'Lambda'
->;
-
-export type Macro = BrandedObject<
-  {
-    identifier: string;
-    parameterIdentifiers: string[];
-    body: Expression;
-  },
-  'Macro'
+  typeof Tags.MACRO_DEFINITION
 >;
 
 export type Value =
@@ -83,29 +89,27 @@ export type Value =
   | RegExpLiteral
   | ArrayLiteral
   | ObjectLiteral
+  | NullLiteral
+  | UndefinedLiteral
   | Identifier
   | MemberExpression
-  | Lambda
-  | Macro;
+  | LambdaDefinition
+  | MacroDefinition
+  | Expression;
 
 export type Expression = BrandedObject<
   {
     identifier: Value;
     arguments: Value[];
   },
-  'Expression'
+  typeof Tags.EXPRESSION
 >;
 
 export type Program = BrandedObject<
   {
     expressions: Expression[];
   },
-  'Program'
+  typeof Tags.PROGRAM
 >;
 
-/*
-
-(+ 2 2)
-(+ 2 (* 1 2))
-
-*/
+export type Token = Value | Program;
