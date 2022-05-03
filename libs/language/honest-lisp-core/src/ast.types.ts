@@ -113,3 +113,32 @@ export type Program = BrandedObject<
 >;
 
 export type Token = Value | Program;
+
+export const foo: Program = {
+  __type: 'Program',
+  expressions: [
+    {
+      __type: 'Expression',
+      identifier: {
+        __type: 'MemberExpression',
+        property: {
+          __type: 'Expression',
+          identifier: {
+            __type: 'StringLiteral',
+            value: 'foo',
+          },
+          arguments: [],
+        },
+        object: {
+          __type: 'Expression',
+          identifier: {
+            __type: 'Identifier',
+            name: '$this',
+          },
+          arguments: [],
+        },
+      },
+      arguments: [],
+    },
+  ],
+};

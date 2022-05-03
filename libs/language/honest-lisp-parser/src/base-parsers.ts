@@ -1,5 +1,6 @@
 import {
   between,
+  flatMapSuccess,
   mapSuccess,
   matchRegex,
   matchString,
@@ -74,4 +75,11 @@ export const nullLiteral = pipe(
 export const undefinedLiteral = pipe(
   matchString('undefined'),
   mapSuccess(makeUndefinedLiteral)
+);
+
+export const regexpLiteral = pipe(
+  matchString('\\/'),
+  orElse(() => notMatchChar('/')),
+  between(matchString('/'), matchString('/'))
+  // todo: work with flags
 );
