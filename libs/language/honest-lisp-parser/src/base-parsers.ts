@@ -1,12 +1,13 @@
 import {
   between,
-  flatMapSuccess,
   mapSuccess,
   matchRegex,
   matchString,
+  minMaxTimes,
   notMatchChar,
   oneOf,
   orElse,
+  Parser,
 } from '@freshts/cupid-combinator';
 import { pipe } from '@freshts/utility-compose';
 import {
@@ -36,20 +37,26 @@ export const closeCurly = matchString('}');
 
 export const doubleQuotedString = pipe(
   matchString('\\"'),
+  mapSuccess(() => '"'),
   orElse(() => notMatchChar('"')),
+  minMaxTimes(0),
+  mapSuccess((str) => str.join('')),
   between(doubleQuote, doubleQuote)
 );
 export const singleQuotedString = pipe(
   matchString("\\'"),
+  mapSuccess(() => "'"),
   orElse(() => notMatchChar("'")),
+  minMaxTimes(0),
+  mapSuccess((str) => str.join('')),
   between(singleQuote, singleQuote)
 );
 
 // LITERALS
 
 export const stringLiteral = pipe(
-  pipe(doubleQuotedString, mapSuccess(unescapeChar('"'))),
-  orElse(() => pipe(singleQuotedString, mapSuccess(unescapeChar("'")))),
+  doubleQuotedString,
+  orElse(() => singleQuotedString),
   mapSuccess(makeStringLiteral)
 );
 

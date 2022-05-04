@@ -20,8 +20,12 @@ export const minMaxTimes =
         )
       );
     }
-    if (results.length < min || results.some(isErr)) {
+    if (results.length < min && results.some(isErr)) {
       return results[results.length - 1] as Failure<ParseErr>;
+    }
+    // take out the failure
+    if (results.some(isErr)) {
+      results.splice(-1, 1);
     }
     const values = (results as Ok<ParseOk<Value>>[]).map((val) => val.ok.value);
     return succeed({
