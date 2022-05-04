@@ -6,19 +6,17 @@ import { ParseErr, ParseOk, Parser, ParseResult } from './types';
 export const minMaxTimes =
   (min: number, max?: number) =>
   <Value>(parser: Parser<Value>): Parser<Value[]> =>
-  (input, cursor) => {
+  (input, cursor = 0) => {
     const results: NonEmptyArray<ParseResult<Value>> = [parser(input, cursor)];
+    let lastResult: ParseResult<Value> = results[0];
     while (
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      isSuccess(results[results.length - 1]!) &&
-      (max === undefined || results.length < max)
+      isSuccess(lastResult) &&
+      lastResult.ok.outputCursor < input.length &&
+      (max === undefined || results.length < max || results[results.length - 1])
     ) {
-      results.push(
-        parser(
-          input,
-          (results[results.length - 1] as Ok<ParseOk<Value>>).ok.outputCursor
-        )
-      );
+      const result = parser(input, lastResult.ok.outputCursor);
+      lastResult = result;
+      results.push(result);
     }
     if (results.length < min && results.some(isErr)) {
       return results[results.length - 1] as Failure<ParseErr>;

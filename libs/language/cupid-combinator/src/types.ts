@@ -18,5 +18,5 @@ export type ParseResult<OkType> = Result<ParseOk<OkType>, ParseErr>;
 
 export type Parser<OkType> = (
   input: string,
-  cursor: number
+  cursor?: number
 ) => ParseResult<OkType>;

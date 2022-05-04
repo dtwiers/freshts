@@ -16,7 +16,7 @@ export const flatMapSuccess =
 export const flatMapSuccessIgnore =
   <OldValue, NewValue>(flatMapFn: (input: OldValue) => Parser<NewValue>) =>
   (parser: Parser<OldValue>): Parser<OldValue> =>
-  (input, cursor) => {
+  (input, cursor = 0) => {
     const firstResult = parser(input, cursor);
     if (isSuccess(firstResult)) {
       const secondResult = flatMapFn(firstResult.ok.value)(

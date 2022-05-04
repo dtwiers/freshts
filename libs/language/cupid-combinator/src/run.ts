@@ -23,7 +23,7 @@ type FormatCodeFrameOptions = ShowErrorOptions & {
   message: string;
 };
 
-const locateCursor = (input: string, cursor: number) => {
+const locateCursor = (input: string, cursor = 0) => {
   const errorLines = input.slice(0, cursor).split('\n');
   const line = errorLines.length;
   const column = errorLines[line - 1]?.length ?? 0;

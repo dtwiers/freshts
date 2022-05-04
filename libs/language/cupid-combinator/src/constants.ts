@@ -4,7 +4,7 @@ import { Parser } from './types';
 
 export const matchString =
   <Value extends string>(value: Value): Parser<Value> =>
-  (input, cursor) => {
+  (input, cursor = 0) => {
     if (input.substring(cursor, cursor + value.length) === value) {
       return succeed({
         input,
@@ -23,7 +23,7 @@ export const matchString =
 
 export const matchStringIgnoreCase =
   (value: string): Parser<string> =>
-  (input, cursor) => {
+  (input, cursor = 0) => {
     if (
       input.substring(cursor, cursor + value.length).toLocaleLowerCase() ===
       value.toLocaleLowerCase()
@@ -45,7 +45,7 @@ export const matchStringIgnoreCase =
 
 export const matchRegex =
   (value: RegExp, expected: string): Parser<string> =>
-  (input, cursor) => {
+  (input, cursor = 0) => {
     const matches = input.substring(cursor).match(value);
     if (matches) {
       return succeed({
@@ -65,7 +65,7 @@ export const matchRegex =
 
 export const anyCharacter =
   (onEOF: () => string): Parser<string> =>
-  (input, cursor) => {
+  (input, cursor = 0) => {
     if (isEnd(input, cursor)) {
       return err({
         expected: onEOF(),
@@ -95,7 +95,7 @@ export const oneOf = (
 
 export const notMatchChar =
   (value: string): Parser<string> =>
-  (input, cursor) => {
+  (input, cursor = 0) => {
     if (input.substring(cursor, cursor + 1) !== value) {
       return succeed({
         input,

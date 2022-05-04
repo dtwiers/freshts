@@ -22,7 +22,7 @@ export const takeUntil =
     predicate: (slicedString: string) => boolean,
     onErr: () => string
   ): Parser<string> =>
-  (input, cursor) => {
+  (input, cursor = 0) => {
     for (let c = cursor; c < input.length; c++) {
       if (predicate(input.slice(c))) {
         return succeed({
@@ -55,7 +55,7 @@ export const atLeastOneUntilTerminator =
     parser: Parser<Value>,
     terminator: Parser<unknown>
   ): Parser<NonEmptyArray<Value>> =>
-  (input, cursor) => {
+  (input, cursor = 0) => {
     const mappedParser = pipe(
       parser,
       mapSuccess((value) => [value] as NonEmptyArray<Value>)
@@ -111,7 +111,7 @@ export const atLeastOneSeparatedBy = <Value>(
     separator,
     flatMapSuccess(() => parser)
   );
-  return (input, cursor) => {
+  return (input, cursor = 0) => {
     const result = mappedParser(input, cursor);
     if (isSuccess(result)) {
       return pipe(

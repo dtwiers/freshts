@@ -12,7 +12,7 @@ export const succeed: <Value>(input: ParseOk<Value>) => Ok<ParseOk<Value>> = ok;
 
 export const succeedParser =
   <Value>(value: Value, width = 0): Parser<Value> =>
-  (input, cursor) =>
+  (input, cursor = 0) =>
     succeed({
       input,
       inputCursor: cursor,
@@ -30,5 +30,5 @@ export const isErr = <Value>(
   parseResult: ParseResult<Value>
 ): parseResult is Failure<ParseErr> => isFailure(parseResult);
 
-export const isEnd = (input: string, cursor: number): boolean =>
+export const isEnd = (input: string, cursor = 0): boolean =>
   cursor >= input.length;
