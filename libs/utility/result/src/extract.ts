@@ -1,7 +1,7 @@
 import { isOk } from './result';
 import type { Result } from './types';
 
-export const extract =
+export const extractResult =
   <OkType, FailureType, OutputType>(
     onOk: (input: OkType) => OutputType,
     onFailure: (input: FailureType) => OutputType

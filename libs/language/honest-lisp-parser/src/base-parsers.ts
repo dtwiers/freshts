@@ -17,7 +17,7 @@ import {
   makeStringLiteral,
   makeUndefinedLiteral,
 } from '@honest-lisp/core';
-import { unescapeChar } from './string.util';
+import { escapeCharParser } from './string.util';
 
 // DELIMITERS
 
@@ -36,17 +36,13 @@ export const closeCurly = matchString('}');
 // DELIMITED
 
 export const doubleQuotedString = pipe(
-  matchString('\\"'),
-  mapSuccess(() => '"'),
-  orElse(() => notMatchChar('"')),
+  escapeCharParser('"'),
   minMaxTimes(0),
   mapSuccess((str) => str.join('')),
   between(doubleQuote, doubleQuote)
 );
 export const singleQuotedString = pipe(
-  matchString("\\'"),
-  mapSuccess(() => "'"),
-  orElse(() => notMatchChar("'")),
+  escapeCharParser("'"),
   minMaxTimes(0),
   mapSuccess((str) => str.join('')),
   between(singleQuote, singleQuote)
@@ -84,6 +80,7 @@ export const undefinedLiteral = pipe(
   mapSuccess(makeUndefinedLiteral)
 );
 
+// don't use escapeCharParser because it needs to keep the '\\/' escaping...I think
 export const regexpLiteral = pipe(
   matchString('\\/'),
   orElse(() => notMatchChar('/')),

@@ -1,5 +1,5 @@
 import { pipe } from '@freshts/utility-compose';
-import { orElse as orElseResult } from '@freshts/utility-result';
+import { orElseResult as orElseResult } from '@freshts/utility-result';
 import { Parser } from './types';
 
 export const orElse =

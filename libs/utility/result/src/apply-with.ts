@@ -1,7 +1,7 @@
 import { isOk, ok } from './result';
 import { Failure, Result } from './types';
 
-export const applyWith =
+export const applyWithResult =
   <Param, FailureType>(wrappedParam: Result<Param, FailureType>) =>
   <OutputOkType>(
     wrappedFn: Result<(param: Param) => OutputOkType, FailureType>
