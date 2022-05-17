@@ -44,7 +44,7 @@ export const matchStringIgnoreCase =
   };
 
 export const matchRegex =
-  (value: RegExp, expected: string): Parser<string> =>
+  (value: RegExp, expected: string): Parser<RegExpMatchArray> =>
   (input, cursor = 0) => {
     const matches = input.substring(cursor).match(value);
     if (matches) {
@@ -52,7 +52,7 @@ export const matchRegex =
         input,
         inputCursor: cursor,
         outputCursor: cursor + (matches[0]?.length ?? 0),
-        value: matches[0] as string,
+        value: matches,
       });
     }
     return err({

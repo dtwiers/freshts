@@ -3,6 +3,7 @@ import {
   BOOLEAN_LITERAL,
   NULL_LITERAL,
   NUMBER_LITERAL,
+  REGEXP_LITERAL,
   STRING_LITERAL,
   UNDEFINED_LITERAL,
 } from './ast.tags';
@@ -10,6 +11,7 @@ import {
   BooleanLiteral,
   NullLiteral,
   NumberLiteral,
+  RegExpLiteral,
   StringLiteral,
   Token,
   UndefinedLiteral,
@@ -48,3 +50,12 @@ export const makeUndefinedLiteral = (): UndefinedLiteral =>
   undefinedBrander({});
 export const isUndefinedLiteral: (value: Token) => value is UndefinedLiteral =
   undefinedChecker;
+
+const regexpBrander = brandObject(REGEXP_LITERAL);
+const regexpChecker = isBrandedObject(REGEXP_LITERAL);
+export const makeRegExpLiteral = (
+  pattern: string,
+  flags: string
+): RegExpLiteral => regexpBrander({ pattern, flags });
+export const isRegExpLiteral: (value: Token) => value is RegExpLiteral =
+  regexpChecker;

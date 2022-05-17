@@ -1,19 +1,19 @@
 import {
   between,
+  mapErr,
   mapSuccess,
   matchRegex,
   matchString,
   minMaxTimes,
-  notMatchChar,
   oneOf,
   orElse,
-  Parser,
 } from '@freshts/cupid-combinator';
 import { pipe } from '@freshts/utility-compose';
 import {
   makeBooleanLiteral,
   makeNullLiteral,
   makeNumberLiteral,
+  makeRegExpLiteral,
   makeStringLiteral,
   makeUndefinedLiteral,
 } from '@honest-lisp/core';
@@ -56,18 +56,19 @@ export const stringLiteral = pipe(
   mapSuccess(makeStringLiteral)
 );
 
-const numberRegex = /-?[0-9]+(?:\.[0-9]+)?/;
+const numberRegex = /^-?[0-9]+(?:\.[0-9]+)?$/;
 
 export const numberLiteral = pipe(
   matchRegex(numberRegex, 'number'),
-  mapSuccess(Number),
+  mapSuccess((match) => Number(match[0])),
   mapSuccess(makeNumberLiteral)
 );
 
 export const booleanLiteral = pipe(
   oneOf('true', 'false'),
   mapSuccess((input) => input === 'true'),
-  mapSuccess(makeBooleanLiteral)
+  mapSuccess(makeBooleanLiteral),
+  mapErr((err) => ({ ...err, expected: 'true | false' }))
 );
 
 export const nullLiteral = pipe(
@@ -81,9 +82,12 @@ export const undefinedLiteral = pipe(
 );
 
 // don't use escapeCharParser because it needs to keep the '\\/' escaping...I think
-export const regexpLiteral = pipe(
-  matchString('\\/'),
-  orElse(() => notMatchChar('/')),
-  between(matchString('/'), matchString('/'))
-  // todo: work with flags
+export const regExpLiteral = pipe(
+  matchRegex(/\/(?<body>.*)\/(?<flags>[gmiyusd]*)/, 'Regexp Literal'),
+  mapSuccess((match) =>
+    makeRegExpLiteral(
+      match.groups?.['body'] ?? '',
+      match.groups?.['flags'] ?? ''
+    )
+  )
 );
