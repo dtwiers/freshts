@@ -58,8 +58,8 @@ export type Identifier = BrandedObject<
 
 export type MemberExpression = BrandedObject<
   {
-    property: Expression;
-    object: Expression;
+    property: IndexType;
+    object: Indexable;
   },
   typeof Tags.MEMBER_EXPRESSION
 >;
@@ -95,6 +95,19 @@ export type Value =
   | MemberExpression
   | LambdaDefinition
   | MacroDefinition
+  | Expression;
+
+export type IndexType =
+  | NumberLiteral
+  | StringLiteral
+  | BooleanLiteral
+  | Identifier
+  | MemberExpression
+  | Expression;
+
+export type Indexable =
+  | Identifier
+  | MemberExpression
   | Expression;
 
 export type Expression = BrandedObject<

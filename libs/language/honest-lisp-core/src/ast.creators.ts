@@ -1,6 +1,7 @@
 import { brandObject, isBrandedObject } from '@freshts/utility-branded';
 import {
   BOOLEAN_LITERAL,
+  IDENTIFIER,
   NULL_LITERAL,
   NUMBER_LITERAL,
   REGEXP_LITERAL,
@@ -9,6 +10,7 @@ import {
 } from './ast.tags';
 import {
   BooleanLiteral,
+  Identifier,
   NullLiteral,
   NumberLiteral,
   RegExpLiteral,
@@ -59,3 +61,10 @@ export const makeRegExpLiteral = (
 ): RegExpLiteral => regexpBrander({ pattern, flags });
 export const isRegExpLiteral: (value: Token) => value is RegExpLiteral =
   regexpChecker;
+
+const identifierBrander = brandObject(IDENTIFIER);
+const identifierChecker = isBrandedObject(IDENTIFIER);
+export const makeIdentifierLiteral = (name: string): Identifier =>
+  identifierBrander({ name });
+export const isIdentifier: (value: Token) => value is Identifier =
+  identifierChecker;

@@ -7,10 +7,13 @@ import {
   minMaxTimes,
   oneOf,
   orElse,
+  Parser,
 } from '@freshts/cupid-combinator';
 import { pipe } from '@freshts/utility-compose';
 import {
+  Identifier,
   makeBooleanLiteral,
+  makeIdentifierLiteral,
   makeNullLiteral,
   makeNumberLiteral,
   makeRegExpLiteral,
@@ -81,13 +84,22 @@ export const undefinedLiteral = pipe(
   mapSuccess(makeUndefinedLiteral)
 );
 
+const regExpLiteralRegExp = /\/(?<body>.*)\/(?<flags>[gmiyusd]*)/;
 // don't use escapeCharParser because it needs to keep the '\\/' escaping...I think
 export const regExpLiteral = pipe(
-  matchRegex(/\/(?<body>.*)\/(?<flags>[gmiyusd]*)/, 'Regexp Literal'),
+  matchRegex(regExpLiteralRegExp, 'Regexp Literal'),
   mapSuccess((match) =>
     makeRegExpLiteral(
       match.groups?.['body'] ?? '',
       match.groups?.['flags'] ?? ''
     )
   )
+);
+
+const identifierRegExp = /^[a-zA-Z$_][a-zA-Z$_0-9]*$/;
+
+export const identifierLiteral: Parser<Identifier> = pipe(
+  matchRegex(identifierRegExp, 'identifier'),
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  mapSuccess((match) => makeIdentifierLiteral(match[0] ?? ''))
 );
