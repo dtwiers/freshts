@@ -12,6 +12,7 @@ describe('createStore', () => {
     expect(store.registerReducer).toBeTruthy();
     expect(store.state).toEqual({});
     expect(store.state$).toBeTruthy();
+    expect(store.storeEvent$).toBeTruthy();
   });
 
   it('starts with the correct state', (done) => {
@@ -20,6 +21,17 @@ describe('createStore', () => {
     store.state$.pipe(take(1)).subscribe({
       next: (value) => {
         expect(value).toEqual({});
+        done();
+      },
+    });
+  });
+
+  it('logs a reducer registration', (done) => {
+    const store = createStore({ initialState: {} });
+    store.storeEvent$.pipe(take(1)).subscribe({
+      next: (value) => {
+        expect(value.message).toBe('store created');
+        expect(value.severity).toBe('log');
         done();
       },
     });

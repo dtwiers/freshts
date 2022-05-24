@@ -6,6 +6,7 @@
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es2015",
@@ -21,25 +22,19 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@freshts/arbitrate": ["libs/utility/arbitrate/src/index.ts"],
-      "@freshts/cupid-combinator": [
-        "libs/language/cupid-combinator/src/index.ts"
-      ],
+      "@freshts/cupid-combinator": ["libs/language/cupid-combinator/src/index.ts"],
       "@freshts/state-store": ["libs/state/store/src/index.ts"],
       "@freshts/utility-array": ["libs/utility/array/src/index.ts"],
       "@freshts/utility-branded": ["libs/utility/branded/src/index.ts"],
       "@freshts/utility-compose": ["libs/utility/compose/src/index.ts"],
-      "@freshts/utility-nonempty-array": [
-        "libs/utility/nonempty-array/src/index.ts"
-      ],
+      "@freshts/utility-nonempty-array": ["libs/utility/nonempty-array/src/index.ts"],
       "@freshts/utility-option": ["libs/utility/option/src/index.ts"],
       "@freshts/utility-record": ["libs/utility/record/src/index.ts"],
       "@freshts/utility-result": ["libs/utility/result/src/index.ts"],
       "@honest-lisp/core": ["libs/language/honest-lisp-core/src/index.ts"],
       "@honest-lisp/data": ["libs/language/honest-lisp-data/src/index.ts"],
       "@honest-lisp/parser": ["libs/language/honest-lisp-parser/src/index.ts"],
-      "@honest-lisp/resolver": [
-        "libs/language/honest-lisp-resolver/src/index.ts"
-      ],
+      "@honest-lisp/resolver": ["libs/language/honest-lisp-resolver/src/index.ts"],
       "@honest-lisp/stdlib": ["libs/language/honest-lisp-stdlib/src/index.ts"]
     }
   },
