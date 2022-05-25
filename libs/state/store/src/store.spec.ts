@@ -1,4 +1,5 @@
 import { take } from 'rxjs';
+import { AnyAction } from './action.types';
 import { createStore } from './store';
 
 describe('createStore', () => {
@@ -32,6 +33,22 @@ describe('createStore', () => {
       next: (value) => {
         expect(value.message).toBe('store created');
         expect(value.severity).toBe('log');
+        done();
+      },
+    });
+  });
+
+  it('registers initial reducers', (done) => {
+    const myReducer = (action: AnyAction) => (state: number[]) =>
+      action.filter.type === 'foo' ? [...state, state.length] : state;
+    const store = createStore({
+      initialState: [0],
+      reducers: [myReducer],
+    });
+    store.storeEvent$.pipe(take(1)).subscribe({
+      next: (value) => {
+        expect(value.severity).toBe('log');
+        expect(value.message).toBe('reducer myReducer registered');
         done();
       },
     });

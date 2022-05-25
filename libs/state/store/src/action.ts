@@ -10,7 +10,6 @@ export const createActionCreator = <
   filter: options.filter,
   create: (...input) => ({
     filter: options.filter,
-    // TODO: fix the TS and logic here
-    payload: options.callback?.(...input) ?? (input[0] as any),
+    payload: options.callback ? options.callback(...input) : (input[0] as PayloadType),
   }),
 });

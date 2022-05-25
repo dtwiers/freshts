@@ -1,7 +1,6 @@
 import type { Observable, Subscription } from 'rxjs';
 import type { AnyAction } from './action.types';
 
-
 export type Dispatch = (action: AnyAction) => void;
 
 export type Effect<StateType> = (
@@ -31,12 +30,12 @@ export type StoreEvent = {
 export type Store<StateType> = {
   action$: Observable<AnyAction>;
   state$: Observable<StateType>;
+  storeEvent$: Observable<StoreEvent>;
   state: StateType;
   dispatch: Dispatch;
   registerHandler: (handler: ActionHandler) => void;
   registerEffect: (effect: Effect<StateType>, options?: Partial<RegisterEffectOptions>) => Subscription;
   registerReducer: (reducer: ActionReducer<StateType>) => void;
-  storeEvent$: Observable<StoreEvent>;
   dispose: () => void;
 };
 
