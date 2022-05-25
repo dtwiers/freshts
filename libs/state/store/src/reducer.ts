@@ -1,6 +1,5 @@
-import type { AnyAction, ActionTokenOf } from './action.types';
+import type { AnyAction } from './action.types';
 import type { ActionReducer } from './store.types';
-import equal from 'fast-deep-equal';
 
 export const combineReducers = <StateType>(...reducers: ActionReducer<StateType>[]): ActionReducer<StateType> => {
   return (action) => (state) =>
@@ -20,8 +19,3 @@ export const on = <StateType, ActionType extends AnyAction>(
     return reducerNoOp;
   };
 };
-
-export const matches =
-  <ActionType extends AnyAction>(tokenOrAction: ActionType | ActionTokenOf<ActionType>) =>
-  (action: AnyAction): action is ActionType =>
-    equal(action.filter, tokenOrAction.filter);

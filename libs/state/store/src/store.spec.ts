@@ -1,6 +1,7 @@
 import { take } from 'rxjs';
 import { AnyAction } from './action.types';
 import { createStore } from './store';
+import { Effect } from './store.types';
 
 describe('createStore', () => {
   it('creates a store', () => {
@@ -52,5 +53,9 @@ describe('createStore', () => {
         done();
       },
     });
+  });
+
+  it('registers effects', (done) => {
+    const myEffect: Effect<number[]> = (action$) => action$.pipe();
   });
 });
