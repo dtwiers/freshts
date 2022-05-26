@@ -1,12 +1,23 @@
 import equal from 'fast-deep-equal';
-import type { ActionTokenOf, AnyAction } from './action.types';
+import type { ActionOf, ActionTokenOf, AnyAction } from './action.types';
+import { ActionMatcher } from './matchers.types';
 
-export const matches =
-  <ActionType extends AnyAction>(tokenOrAction: ActionType | ActionTokenOf<ActionType>) =>
-  (action: AnyAction): action is ActionType =>
-    equal(action.filter, tokenOrAction.filter);
+export const matchesToken =
+  <ActionTokenType extends ActionTokenOf<AnyAction>>(
+    token: ActionTokenType
+  ): ActionMatcher<ActionOf<ActionTokenType>> =>
+  (action): action is ActionOf<ActionTokenType> =>
+    equal(action.filter, token.filter);
+export const matchesAction =
+  <ActionType extends AnyAction>(matchingAction: ActionType): ActionMatcher<ActionType> =>
+  (action): action is ActionType =>
+    equal(action.filter, matchingAction.filter);
 
-export const matchType =
-  <ActionType extends AnyAction>(tokenOrAction: ActionType | ActionTokenOf<ActionType>) =>
+export const matchTokenType =
+  <ActionTokenType extends ActionTokenOf<AnyAction>>(token: ActionTokenType) =>
+  (action: AnyAction): action is ActionOf<ActionTokenType> =>
+    action.filter.type === token.filter.type;
+export const matchActionType =
+  <ActionType extends AnyAction>(matchingAction: ActionType) =>
   (action: AnyAction): action is ActionType =>
-    action.filter.type === tokenOrAction.filter.type;
+    action.filter.type === matchingAction.filter.type;
