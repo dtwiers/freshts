@@ -1,0 +1,32 @@
+{
+  "root": "libs/state/builders/common",
+  "sourceRoot": "libs/state/builders/common/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/state/builders/common",
+        "main": "libs/state/builders/common/src/index.ts",
+        "tsConfig": "libs/state/builders/common/tsconfig.lib.json",
+        "assets": ["libs/state/builders/common/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/state/builders/common/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/state/builders/common"],
+      "options": {
+        "jestConfig": "libs/state/builders/common/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

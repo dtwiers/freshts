@@ -1,0 +1,32 @@
+{
+  "root": "libs/state/adaptors/record",
+  "sourceRoot": "libs/state/adaptors/record/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/state/adaptors/record",
+        "main": "libs/state/adaptors/record/src/index.ts",
+        "tsConfig": "libs/state/adaptors/record/tsconfig.lib.json",
+        "assets": ["libs/state/adaptors/record/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/state/adaptors/record/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/state/adaptors/record"],
+      "options": {
+        "jestConfig": "libs/state/adaptors/record/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

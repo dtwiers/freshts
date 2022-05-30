@@ -1,7 +1,11 @@
-import { take } from 'rxjs';
+import { map, scan, skip, take } from 'rxjs';
 import { AnyAction } from './action.types';
 import { createStore } from './store';
-import { Effect } from './store.types';
+import { ActionReducer, Effect } from './store.types';
+import { ofType } from './effect';
+import { matchesToken } from './matchers';
+import { createActionCreator } from './action';
+import { on } from './reducer';
 
 describe('createStore', () => {
   it('creates a store', () => {
@@ -55,7 +59,43 @@ describe('createStore', () => {
     });
   });
 
-  it('registers effects', (done) => {
-    const myEffect: Effect<number[]> = (action$) => action$.pipe();
+  it('responds to effects & reducers', (done) => {
+    const requestToAddOne = createActionCreator({
+      filter: {
+        type: 'requestToAddOne' as const,
+      },
+      callback: (item: number) => item,
+    });
+    const addOne = createActionCreator({
+      filter: {
+        type: 'addOne' as const,
+      },
+      callback: (item: number) => item,
+    });
+    const myEffect: Effect<number[]> = (action$) =>
+      action$.pipe(
+        ofType(matchesToken(requestToAddOne)),
+        map((action) => addOne.create(action.payload))
+      );
+    const myReducer: ActionReducer<number[]> = on(matchesToken(addOne), (action) => (state) => [
+      ...state,
+      action.payload,
+    ]);
+    const store = createStore({
+      initialState: [],
+      effects: [myEffect],
+      reducers: [myReducer],
+    });
+    store.state$
+      .pipe(
+        scan((accum, curr) => [...accum, curr], [] as number[][]),
+        skip(2),
+        take(1)
+      )
+      .subscribe((value) => {
+        expect(value).toEqual<number[][]>([[], [], [4]]);
+        done();
+      });
+    store.dispatch(requestToAddOne.create(4));
   });
 });

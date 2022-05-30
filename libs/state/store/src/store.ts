@@ -1,89 +1,46 @@
-import {
-  BehaviorSubject,
-  concat,
-  from,
-  ReplaySubject,
-  scan,
-  shareReplay,
-  Subject,
-  Subscription,
-  switchMap,
-  tap,
-  withLatestFrom,
-} from 'rxjs';
+import { BehaviorSubject, ReplaySubject, Subject, Subscription } from 'rxjs';
 import type { AnyAction } from './action.types';
-import { combineReducers } from './reducer';
-import type {
-  ActionHandler,
-  ActionReducer,
-  Effect,
-  RegisterEffectOptions,
-  Store,
-  StoreEvent,
-  StoreOptions,
-} from './store.types';
-import { createEventLogger } from './store.util';
+import {
+  attachHandlers,
+  calculateState,
+  createEventLogger,
+  makeDispose,
+  makeRegisterEffect,
+} from './store.internal.util';
+import type { ActionHandler, ActionReducer, Store, StoreEvent, StoreOptions } from './store.types';
 
 export const createStore = <StateType>(options: StoreOptions<StateType>): Store<StateType> => {
   const subscriptions = new Subscription();
-  const state$ = new BehaviorSubject(options.initialState);
-  const action$ = new Subject<AnyAction>();
+  const state$ = options.state$ ?? new BehaviorSubject(options.initialState);
+  const action$ = options.action$ ?? new Subject<AnyAction>();
+  const storeEvent$ = options.storeEvent$ ?? new ReplaySubject<StoreEvent>(10);
+
   const postReducerAction$ = new Subject<AnyAction>();
   const reducer$ = new ReplaySubject<ActionReducer<StateType>>(1);
   const handler$ = new ReplaySubject<ActionHandler>();
-  const storeEvent$ = new ReplaySubject<StoreEvent>(options.logDepth ?? 10);
+
   const logger = createEventLogger(storeEvent$);
 
-  const allReducer$ = concat(from(options.reducers ?? []), reducer$).pipe(
-    scan((combined, reducer) => combineReducers(reducer, combined)),
-    shareReplay(1)
-  );
-  (options.reducers ?? []).forEach((reducer) => logger.log(`reducer ${reducer.name} registered`));
-
-  const allHandler$ = concat(from(options.handlers ?? []), handler$).pipe(
-    scan((arr, handler) => [...arr, handler], [] as ActionHandler[]),
-    shareReplay(1)
-  );
-
-  const stateSubscription = allReducer$
-    .pipe(
-      switchMap((reducer) => action$.pipe(scan((state, action) => reducer(action)(state), options.initialState))),
-      withLatestFrom(action$)
-    )
-    .subscribe({
-      next: ([state, action]) => {
-        state$.next(state);
-        postReducerAction$.next(action);
-      },
-      complete: () => {
-        state$.complete();
-      },
-      error: (err) => {
-        state$.error(err);
-      },
-    });
-  subscriptions.add(stateSubscription);
   subscriptions.add(
-    action$
-      .pipe(
-        withLatestFrom(allHandler$),
-        tap(([action, handlers]) => handlers.forEach((handler) => handler(action)))
-      )
-      .subscribe()
+    calculateState({
+      reducer$,
+      initialReducers: options.reducers ?? [],
+      initialState: options.initialState,
+      state$,
+      inputAction$: action$,
+      outputAction$: postReducerAction$,
+      logger,
+    })
   );
-  const registerEffect = (effect: Effect<StateType>, options?: Partial<RegisterEffectOptions>): Subscription => {
-    const subscription = effect(postReducerAction$, state$).subscribe({
-      next: (value) => {
-        if (!options?.noDispatch) {
-          action$.next(value);
-        }
-      },
-      complete: () => logger.warn(`effect ${effect.name} has completed.`),
-      error: (err) => logger.warn(`effect ${effect.name} has errored: ${err}`),
-    });
-    logger.log(`effect ${effect.name} registered`);
-    return subscription;
-  };
+
+  subscriptions.add(attachHandlers(handler$, options.handlers ?? [], action$, logger));
+
+  const registerEffect = makeRegisterEffect({
+    action$,
+    logger,
+    postReducerAction$,
+    state$,
+  });
 
   (options.effects ?? []).forEach((effect) => {
     subscriptions.add(registerEffect(effect));
@@ -95,6 +52,19 @@ export const createStore = <StateType>(options: StoreOptions<StateType>): Store<
   };
 
   (options.handlers ?? []).forEach(registerHandler);
+
+  const dispose = makeDispose(
+    [
+      postReducerAction$,
+      reducer$,
+      handler$,
+      options.state$ && state$,
+      options.action$ && action$,
+      options.storeEvent$ && storeEvent$,
+    ],
+    subscriptions,
+    logger
+  );
 
   logger.log('store created');
   return {
@@ -108,16 +78,7 @@ export const createStore = <StateType>(options: StoreOptions<StateType>): Store<
     },
     registerEffect,
     registerHandler,
-    dispose: () => {
-      state$.complete();
-      action$.complete();
-      postReducerAction$.complete();
-      reducer$.complete();
-      handler$.complete();
-      logger.log('store has been disposed');
-      storeEvent$.complete();
-      subscriptions.unsubscribe();
-    },
+    dispose,
     storeEvent$: storeEvent$.pipe(),
   };
 };

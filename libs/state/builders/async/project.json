@@ -1,0 +1,32 @@
+{
+  "root": "libs/state/async",
+  "sourceRoot": "libs/state/async/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/state/async",
+        "main": "libs/state/async/src/index.ts",
+        "tsConfig": "libs/state/async/tsconfig.lib.json",
+        "assets": ["libs/state/async/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/state/async/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/state/async"],
+      "options": {
+        "jestConfig": "libs/state/async/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -23,6 +23,10 @@
     "paths": {
       "@freshts/arbitrate": ["libs/utility/arbitrate/src/index.ts"],
       "@freshts/cupid-combinator": ["libs/language/cupid-combinator/src/index.ts"],
+      "@freshts/state-async": ["libs/state/builders/async/src/index.ts"],
+      "@freshts/state-common": ["libs/state/builders/common/src/index.ts"],
+      "@freshts/state-entity": ["libs/state/builders/entity/src/index.ts"],
+      "@freshts/state-record": ["libs/state/builders/record/src/index.ts"],
       "@freshts/state-store": ["libs/state/store/src/index.ts"],
       "@freshts/utility-array": ["libs/utility/array/src/index.ts"],
       "@freshts/utility-branded": ["libs/utility/branded/src/index.ts"],

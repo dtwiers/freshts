@@ -1,4 +1,4 @@
-import type { Observable, Subscription } from 'rxjs';
+import type { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs';
 import type { AnyAction } from './action.types';
 
 export type Dispatch = (action: AnyAction) => void;
@@ -44,7 +44,9 @@ export type StoreOptions<StateType> = {
   reducers?: ActionReducer<StateType>[];
   handlers?: ActionHandler[];
   initialState: StateType;
-  logDepth?: number; // default 10
+  storeEvent$?: Subject<StoreEvent>;
+  action$?: Subject<AnyAction>;
+  state$?: BehaviorSubject<StateType>;
 };
 
 export type StoreCreator<StateType> = (options: StoreOptions<StateType>) => Store<StateType>;
