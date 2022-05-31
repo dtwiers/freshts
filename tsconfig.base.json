@@ -23,6 +23,7 @@
     "paths": {
       "@freshts/arbitrate": ["libs/utility/arbitrate/src/index.ts"],
       "@freshts/cupid-combinator": ["libs/language/cupid-combinator/src/index.ts"],
+      "@freshts/lens": ["libs/utility/lens/src/index.ts"],
       "@freshts/state-async": ["libs/state/builders/async/src/index.ts"],
       "@freshts/state-common": ["libs/state/builders/common/src/index.ts"],
       "@freshts/state-entity": ["libs/state/builders/entity/src/index.ts"],

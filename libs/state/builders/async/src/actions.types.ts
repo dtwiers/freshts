@@ -22,12 +22,19 @@ export type AsyncAction<
   }
 >;
 
-export type AsyncStartAction<
+export type AsyncStartReplaceAction<
   ActionBaseType extends string,
   PayloadType,
   FilterMetadata = void,
   PayloadMetadata = void
-> = AsyncAction<ActionBaseType, 'Start', PayloadType, FilterMetadata, PayloadMetadata>;
+> = AsyncAction<ActionBaseType, 'Start:Replace', PayloadType, FilterMetadata, PayloadMetadata>;
+
+export type AsyncStartAppendAction<
+  ActionBaseType extends string,
+  PayloadType,
+  FilterMetadata = void,
+  PayloadMetadata = void
+> = AsyncAction<ActionBaseType, 'Start:Append', PayloadType, FilterMetadata, PayloadMetadata>;
 
 export type AsyncSucceedAction<
   ActionBaseType extends string,
