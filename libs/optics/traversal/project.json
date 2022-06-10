@@ -1,0 +1,32 @@
+{
+  "root": "libs/optics/traversal",
+  "sourceRoot": "libs/optics/traversal/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/optics/traversal",
+        "main": "libs/optics/traversal/src/index.ts",
+        "tsConfig": "libs/optics/traversal/tsconfig.lib.json",
+        "assets": ["libs/optics/traversal/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/optics/traversal/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/optics/traversal"],
+      "options": {
+        "jestConfig": "libs/optics/traversal/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

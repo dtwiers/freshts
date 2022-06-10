@@ -21,6 +21,10 @@
     "strict": true,
     "noFallthroughCasesInSwitch": true,
     "paths": {
+      "@foptic/adapter": ["libs/optics/adapter/src/index.ts"],
+      "@foptic/lens": ["libs/optics/lens/src/index.ts"],
+      "@foptic/prism": ["libs/optics/prism/src/index.ts"],
+      "@foptic/traversal": ["libs/optics/traversal/src/index.ts"],
       "@freshts/arbitrate": ["libs/utility/arbitrate/src/index.ts"],
       "@freshts/cupid-combinator": ["libs/language/cupid-combinator/src/index.ts"],
       "@freshts/lens": ["libs/utility/lens/src/index.ts"],

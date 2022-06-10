@@ -5,6 +5,7 @@ export type HasTypeValue<T extends string> = {
 export type Action<FilterType extends HasTypeValue<string>, PayloadType> = {
   filter: FilterType;
   payload: PayloadType;
+  toString?: () => string;
 };
 
 export type AnyAction = Action<HasTypeValue<string>, unknown>;

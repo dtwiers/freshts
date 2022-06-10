@@ -1,0 +1,32 @@
+{
+  "root": "libs/optics/lens",
+  "sourceRoot": "libs/optics/lens/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/optics/lens",
+        "main": "libs/optics/lens/src/index.ts",
+        "tsConfig": "libs/optics/lens/tsconfig.lib.json",
+        "assets": ["libs/optics/lens/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/optics/lens/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/optics/lens"],
+      "options": {
+        "jestConfig": "libs/optics/lens/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

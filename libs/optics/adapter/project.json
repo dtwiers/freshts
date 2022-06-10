@@ -1,0 +1,32 @@
+{
+  "root": "libs/optics/adapter",
+  "sourceRoot": "libs/optics/adapter/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/optics/adapter",
+        "main": "libs/optics/adapter/src/index.ts",
+        "tsConfig": "libs/optics/adapter/tsconfig.lib.json",
+        "assets": ["libs/optics/adapter/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/optics/adapter/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/optics/adapter"],
+      "options": {
+        "jestConfig": "libs/optics/adapter/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
