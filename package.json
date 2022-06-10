@@ -2,7 +2,9 @@
   "name": "freshts",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "test": "nx run-many --all --target test --parallel=4"
+  },
   "private": true,
   "dependencies": {
     "fast-check": "^2.24.0",
