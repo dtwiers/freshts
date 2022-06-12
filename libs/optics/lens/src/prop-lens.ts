@@ -1,7 +1,10 @@
 import { Lens } from './types';
 
-export const createLensCreator = <Structure>() => ({
-  fromProp: <PropType extends keyof Structure>(prop: PropType): Lens<Structure, Structure[PropType]> => ({
+export class LensCreator<Structure> {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function,@typescript-eslint/no-unused-vars
+  constructor(_dataTemplate?: Structure) {}
+
+  public fromProp = <PropType extends keyof Structure>(prop: PropType): Lens<Structure, Structure[PropType]> => ({
     get: (structure) => structure[prop],
     set: (value) => (structure) => {
       if (Array.isArray(structure) && typeof prop === 'number') {
@@ -12,8 +15,8 @@ export const createLensCreator = <Structure>() => ({
         [prop]: value,
       };
     },
-  }),
-  fromPropNullable: <PropType extends keyof Structure>(
+  });
+  public fromPropNullable = <PropType extends keyof Structure>(
     prop: PropType
   ): Lens<Structure | null | undefined, Structure[PropType] | null | undefined> => ({
     get: (structure) => structure?.[prop],
@@ -32,5 +35,5 @@ export const createLensCreator = <Structure>() => ({
         [prop]: value,
       };
     },
-  }),
-});
+  });
+}

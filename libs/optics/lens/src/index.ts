@@ -1,1 +1,1 @@
-export * from './lib/optics-lens';
+export * from './prop-lens';
