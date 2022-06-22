@@ -1,29 +1,29 @@
 {
-  "root": "libs/state/async",
-  "sourceRoot": "libs/state/async/src",
+  "root": "libs/state/builders/async",
+  "sourceRoot": "libs/state/builders/async/src",
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/state/async",
-        "main": "libs/state/async/src/index.ts",
-        "tsConfig": "libs/state/async/tsconfig.lib.json",
-        "assets": ["libs/state/async/*.md"]
+        "outputPath": "dist/libs/state/builders/async",
+        "main": "libs/state/builders/async/src/index.ts",
+        "tsConfig": "libs/state/builders/async/tsconfig.lib.json",
+        "assets": ["libs/state/builders/async/*.md"]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/state/async/**/*.ts"]
+        "lintFilePatterns": ["libs/state/builders/async/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/state/async"],
+      "outputs": ["coverage/libs/state/builders/async"],
       "options": {
-        "jestConfig": "libs/state/async/jest.config.js",
+        "jestConfig": "libs/state/builders/async/jest.config.js",
         "passWithNoTests": true
       }
     }

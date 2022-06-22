@@ -1,29 +1,29 @@
 {
-  "root": "libs/state/entity",
-  "sourceRoot": "libs/state/entity/src",
+  "root": "libs/state/builders/entity",
+  "sourceRoot": "libs/state/builders/entity/src",
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/state/entity",
-        "main": "libs/state/entity/src/index.ts",
-        "tsConfig": "libs/state/entity/tsconfig.lib.json",
-        "assets": ["libs/state/entity/*.md"]
+        "outputPath": "dist/libs/state/builders/entity",
+        "main": "libs/state/builders/entity/src/index.ts",
+        "tsConfig": "libs/state/builders/entity/tsconfig.lib.json",
+        "assets": ["libs/state/builders/entity/*.md"]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/state/entity/**/*.ts"]
+        "lintFilePatterns": ["libs/state/builders/entity/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/state/entity"],
+      "outputs": ["coverage/libs/state/builders/entity"],
       "options": {
-        "jestConfig": "libs/state/entity/jest.config.js",
+        "jestConfig": "libs/state/builders/entity/jest.config.js",
         "passWithNoTests": true
       }
     }
