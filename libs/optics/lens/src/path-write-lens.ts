@@ -157,12 +157,13 @@ export function createPathWriteLens<Structure, KeyTypes extends PropertyKey[]>(
         return value as Structure;
       }
       if (Array.isArray(structure) && typeof keys[0] === 'number') {
-        return [...structure.slice(0, keys[0]), value, ...structure.slice(keys[0] + 1)];
+        return [...structure.slice(0, keys[0]), value, ...structure.slice(keys[0] + 1)] as unknown as Structure;
       }
       return {
         ...structure,
+        // TODO: This is terrible. Stop breaking all the rules.
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        [keys[0] as any]: createPathWriteLens(...keys.slice(1)).set(value)(structure[key[0]]),
+        [keys[0] as any]: (createPathWriteLens as any)(...keys.slice(1)).set(value)((structure as any)[keys[0] as any]),
       } as Structure;
     },
   };
