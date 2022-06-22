@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "test": "nx run-many --all --target test --parallel=4"
+    "test": "nx run-many --all --target test --parallel=12"
   },
   "private": true,
   "dependencies": {
