@@ -1,1 +1,2 @@
-export * from './lib/optics-adapter';
+export * from './types';
+export * from './adapter';

@@ -1,1 +1,2 @@
-export * from './prop-lens';
+export * from './path-lens';
+export * from './types';

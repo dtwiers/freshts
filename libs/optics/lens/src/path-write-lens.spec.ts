@@ -20,4 +20,25 @@ describe('createPathWriteLens', () => {
       })
     );
   });
+
+  it('sets a next level key', () => {
+    const writeLens = createPathWriteLens<{ foo: { bar: string } }, 'foo', 'bar'>('foo', 'bar');
+
+    FC.assert(
+      FC.property(
+        FC.string(),
+        FC.record({
+          foo: FC.record({
+            bar: FC.string(),
+          }),
+        }),
+        (value, structure) => {
+          expect(writeLens.set(value)(structure)).toStrictEqual({
+            ...structure,
+            foo: { ...structure.foo, bar: value },
+          });
+        }
+      )
+    );
+  });
 });
