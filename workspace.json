@@ -20,7 +20,6 @@
     "utility-array": "libs/utility/array",
     "utility-branded": "libs/utility/branded",
     "utility-compose": "libs/utility/compose",
-    "utility-lens": "libs/utility/lens",
     "utility-nonempty-array": "libs/utility/nonempty-array",
     "utility-option": "libs/utility/option",
     "utility-record": "libs/utility/record",
