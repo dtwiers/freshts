@@ -1,4 +1,4 @@
-import { BrandedObject, EmptyBrandedObject } from '@freshts/utility-branded';
+import { BrandedObject, EmptyBrandedObject } from '@freshts/branded';
 import * as Tags from './ast.tags';
 
 export type NumberLiteral = BrandedObject<

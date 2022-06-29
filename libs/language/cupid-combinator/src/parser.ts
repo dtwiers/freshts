@@ -5,7 +5,7 @@ import {
   isOk,
   Ok,
   ok,
-} from '@freshts/utility-result';
+} from '@freshts/result';
 import type { ParseErr, ParseOk, Parser, ParseResult } from './types';
 
 export const succeed: <Value>(input: ParseOk<Value>) => Ok<ParseOk<Value>> = ok;

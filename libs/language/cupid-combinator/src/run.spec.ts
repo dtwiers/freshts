@@ -1,5 +1,5 @@
-import { applyWith, pipe } from '@freshts/utility-compose';
-import { fail, mapFailure, ok } from '@freshts/utility-result';
+import { applyWith, pipe } from '@freshts/compose';
+import { fail, mapFailure, ok } from '@freshts/result';
 import * as FC from 'fast-check';
 import { matchString } from './constants';
 import { flatMapSuccess } from './flat-map';

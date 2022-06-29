@@ -1,4 +1,4 @@
-import { createActionCreator } from '@freshts/state-store';
+import { createActionCreator } from '@eezo-state/store';
 
 export type MakeAsyncStartOptions<ActionKey extends string, FilterMetadata, PayloadMetadata> = {
   actionKey: ActionKey;

@@ -1,5 +1,5 @@
-import { flow } from '@freshts/utility-compose';
-import { mapFailure, mapOk } from '@freshts/utility-result';
+import { flow } from '@freshts/compose';
+import { mapFailure, mapOk } from '@freshts/result';
 import { ParseErr, Parser } from './types';
 
 export const mapSuccess =

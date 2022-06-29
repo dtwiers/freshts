@@ -1,15 +1,15 @@
-module.exports = {
-  displayName: 'optics-traversal',
-  preset: '../../../jest.preset.js',
+/* eslint-disable */
+export default {
+  displayName: 'state-builders-common',
+  preset: '../../../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
-  testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/optics/traversal',
+  coverageDirectory: '../../../../coverage/libs/state/builders/common',
 };

@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'language-honest-lisp-core',
+/* eslint-disable */
+export default {
+  displayName: 'optics-traversal',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +12,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/language/honest-lisp-core',
+  coverageDirectory: '../../../coverage/libs/optics/traversal',
 };

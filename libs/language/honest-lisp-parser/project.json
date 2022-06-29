@@ -1,5 +1,5 @@
 {
-  "root": "libs/language/honest-lisp-parser",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/language/honest-lisp-parser/src",
   "targets": {
     "build": {
@@ -23,7 +23,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/language/honest-lisp-parser"],
       "options": {
-        "jestConfig": "libs/language/honest-lisp-parser/jest.config.js",
+        "jestConfig": "libs/language/honest-lisp-parser/jest.config.ts",
         "passWithNoTests": true
       }
     }

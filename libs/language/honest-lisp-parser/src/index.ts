@@ -1,1 +1,2 @@
-export * from './lib/language-honest-lisp-parser';
+// temp. Probably shouldn't actually export this.
+export * from './string.util';

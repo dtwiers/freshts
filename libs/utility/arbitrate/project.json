@@ -1,5 +1,5 @@
 {
-  "root": "libs/utility/arbitrate",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/utility/arbitrate/src",
   "targets": {
     "build": {
@@ -23,7 +23,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/utility/arbitrate"],
       "options": {
-        "jestConfig": "libs/utility/arbitrate/jest.config.js",
+        "jestConfig": "libs/utility/arbitrate/jest.config.ts",
         "passWithNoTests": true
       }
     }

@@ -1,5 +1,5 @@
 import { ParseErr } from '@freshts/cupid-combinator';
-import { Failure, isFailure, isOk } from '@freshts/utility-result';
+import { Failure, isFailure, isOk } from '@freshts/result';
 import FC from 'fast-check';
 import {
   booleanLiteral,

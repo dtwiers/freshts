@@ -1,4 +1,4 @@
-import { pipe } from '@freshts/utility-compose';
+import { pipe } from '@freshts/compose';
 import { mapErr } from './map';
 import { Parser } from './types';
 

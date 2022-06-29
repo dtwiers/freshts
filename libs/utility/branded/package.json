@@ -1,5 +1,4 @@
 {
-  "name": "@freshts/utility-branded",
-  "version": "0.0.1",
-  "type": "commonjs"
+  "name": "@freshts/branded",
+  "version": "0.0.1"
 }

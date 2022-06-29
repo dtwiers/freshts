@@ -1,4 +1,4 @@
-import type { Result } from '@freshts/utility-result';
+import type { Result } from '@freshts/result';
 
 export type ParseOk<T> = {
   input: string;

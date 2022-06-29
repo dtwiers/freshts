@@ -1,4 +1,4 @@
-import type { BrandedObject } from '@freshts/utility-branded';
+import type { BrandedObject } from '@freshts/branded';
 
 export type Ok<T> = BrandedObject<
   {

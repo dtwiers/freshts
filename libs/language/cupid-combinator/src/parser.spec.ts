@@ -1,7 +1,7 @@
 import { succeedParser } from './parser';
 import { runParser } from './run';
 import * as FC from 'fast-check';
-import { ok } from '@freshts/utility-result';
+import { ok } from '@freshts/result';
 
 describe('succeedParser', () => {
   it('parses as a success', () => {

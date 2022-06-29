@@ -1,5 +1,4 @@
 {
-  "name": "@freshts/state-record",
-  "version": "0.0.1",
-  "type": "commonjs"
+  "name": "@eezo-state/record",
+  "version": "0.0.1"
 }

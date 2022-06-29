@@ -1,4 +1,4 @@
-import { brandObject, isBrandedObject } from '@freshts/utility-branded';
+import { brandObject, isBrandedObject } from '@freshts/branded';
 import { None, Option, Some } from './types';
 
 const asSome = brandObject('Some');

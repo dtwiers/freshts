@@ -1,5 +1,5 @@
-import { NonEmptyArray } from '@freshts/utility-nonempty-array';
-import { Failure, Ok } from '@freshts/utility-result';
+import { NonEmptyArray } from '@freshts/nonempty-array';
+import { Failure, Ok } from '@freshts/result';
 import { isErr, isSuccess, succeed } from './parser';
 import { ParseErr, ParseOk, Parser, ParseResult } from './types';
 

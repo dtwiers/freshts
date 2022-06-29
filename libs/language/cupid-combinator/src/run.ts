@@ -1,6 +1,6 @@
-import { mapArray, mapHead, mapLast } from '@freshts/utility-array';
-import { pipe } from '@freshts/utility-compose';
-import { mapOk } from '@freshts/utility-result';
+import { mapArray, mapHead, mapLast } from '@freshts/array';
+import { pipe } from '@freshts/compose';
+import { mapOk } from '@freshts/result';
 import { ParseErr, Parser } from './types';
 
 export const runParser =

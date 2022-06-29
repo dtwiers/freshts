@@ -1,5 +1,5 @@
 import { Lens } from './types';
-import { applyWith, pipe } from '@freshts/utility-compose';
+import { applyWith, pipe } from '@freshts/compose';
 
 export const withInnerLens =
   <InnerStructureType, TargetType>(innerLens: Lens<InnerStructureType, TargetType>) =>

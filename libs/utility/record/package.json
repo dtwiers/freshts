@@ -1,5 +1,4 @@
 {
-  "name": "@freshts/utility-record",
-  "version": "0.0.1",
-  "type": "commonjs"
+  "name": "@freshts/record",
+  "version": "0.0.1"
 }

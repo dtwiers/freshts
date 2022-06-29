@@ -1,5 +1,5 @@
 {
-  "root": "libs/utility/branded",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/utility/branded/src",
   "targets": {
     "build": {
@@ -23,7 +23,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/utility/branded"],
       "options": {
-        "jestConfig": "libs/utility/branded/jest.config.js",
+        "jestConfig": "libs/utility/branded/jest.config.ts",
         "passWithNoTests": true
       }
     }

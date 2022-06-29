@@ -9,7 +9,7 @@ import {
   orElse,
   Parser,
 } from '@freshts/cupid-combinator';
-import { pipe } from '@freshts/utility-compose';
+import { pipe } from '@freshts/compose';
 import {
   Identifier,
   makeBooleanLiteral,

@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'language-cupid-combinator',
+/* eslint-disable */
+export default {
+  displayName: 'language-honest-lisp-stdlib',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +12,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/language/cupid-combinator',
+  coverageDirectory: '../../../coverage/libs/language/honest-lisp-stdlib',
 };

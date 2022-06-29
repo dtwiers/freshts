@@ -1,6 +1,6 @@
-import { flow, pipe } from '@freshts/utility-compose';
-import { NonEmptyArray } from '@freshts/utility-nonempty-array';
-import { flatMapOk, flatMapOkIgnore, mapOk } from '@freshts/utility-result';
+import { flow, pipe } from '@freshts/compose';
+import { NonEmptyArray } from '@freshts/nonempty-array';
+import { flatMapOk, flatMapOkIgnore, mapOk } from '@freshts/result';
 import { flatMapSuccess } from './flat-map';
 import { minMaxTimes } from './many';
 import { mapSuccess } from './map';

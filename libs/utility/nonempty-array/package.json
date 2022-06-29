@@ -1,5 +1,4 @@
 {
-  "name": "@freshts/utility-nonempty-array",
-  "version": "0.0.1",
-  "type": "commonjs"
+  "name": "@freshts/nonempty-array",
+  "version": "0.0.1"
 }

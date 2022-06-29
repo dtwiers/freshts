@@ -1,4 +1,4 @@
-import { brandObject, isBrandedObject } from '@freshts/utility-branded';
+import { brandObject, isBrandedObject } from '@freshts/branded';
 import {
   BOOLEAN_LITERAL,
   IDENTIFIER,

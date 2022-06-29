@@ -1,4 +1,4 @@
-import { Action } from '@freshts/state-store';
+import { Action } from '@eezo-state/store';
 
 export type ActionBehavior =
   | 'append'

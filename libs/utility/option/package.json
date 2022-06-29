@@ -1,5 +1,4 @@
 {
-  "name": "@freshts/utility-option",
-  "version": "0.0.1",
-  "sideEffects": false
+  "name": "@freshts/option",
+  "version": "0.0.1"
 }

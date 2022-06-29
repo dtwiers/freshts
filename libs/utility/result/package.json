@@ -1,5 +1,4 @@
 {
-  "name": "@freshts/utility-result",
-  "version": "0.0.1",
-  "type": "commonjs"
+  "name": "@freshts/result",
+  "version": "0.0.1"
 }
