@@ -1,5 +1,5 @@
 {
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "root": "libs/optics/traversal",
   "sourceRoot": "libs/optics/traversal/src",
   "targets": {
     "build": {
@@ -23,7 +23,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/optics/traversal"],
       "options": {
-        "jestConfig": "libs/optics/traversal/jest.config.ts",
+        "jestConfig": "libs/optics/traversal/jest.config.js",
         "passWithNoTests": true
       }
     }

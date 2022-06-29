@@ -1,15 +1,15 @@
-/* eslint-disable */
-export default {
-  displayName: 'state-entity',
-  preset: '../../../../jest.preset.js',
+module.exports = {
+  displayName: 'optics-adapter',
+  preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
+  testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../../coverage/libs/state/entity',
+  coverageDirectory: '../../../coverage/libs/optics/adapter',
 };

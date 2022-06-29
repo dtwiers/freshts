@@ -1,6 +1,5 @@
-/* eslint-disable */
-export default {
-  displayName: 'utility-result',
+module.exports = {
+  displayName: 'optics-lens',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -12,5 +11,5 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/utility/result',
+  coverageDirectory: '../../../coverage/libs/optics/lens',
 };

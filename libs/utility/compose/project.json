@@ -1,5 +1,5 @@
 {
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "root": "libs/utility/compose",
   "sourceRoot": "libs/utility/compose/src",
   "targets": {
     "build": {
@@ -23,7 +23,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/utility/compose"],
       "options": {
-        "jestConfig": "libs/utility/compose/jest.config.ts",
+        "jestConfig": "libs/utility/compose/jest.config.js",
         "passWithNoTests": true
       }
     }

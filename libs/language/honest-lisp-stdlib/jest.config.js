@@ -1,6 +1,5 @@
-/* eslint-disable */
-export default {
-  displayName: 'optics-lens',
+module.exports = {
+  displayName: 'language-honest-lisp-stdlib',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -12,5 +11,5 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/optics/lens',
+  coverageDirectory: '../../../coverage/libs/language/honest-lisp-stdlib',
 };

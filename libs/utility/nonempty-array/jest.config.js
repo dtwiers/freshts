@@ -1,6 +1,5 @@
-/* eslint-disable */
-export default {
-  displayName: 'utility-option',
+module.exports = {
+  displayName: 'utility-nonempty-array',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -12,5 +11,5 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/utility/option',
+  coverageDirectory: '../../../coverage/libs/utility/nonempty-array',
 };

@@ -1,5 +1,5 @@
 {
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "root": "libs/language/cupid-combinator",
   "sourceRoot": "libs/language/cupid-combinator/src",
   "targets": {
     "build": {
@@ -23,7 +23,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/language/cupid-combinator"],
       "options": {
-        "jestConfig": "libs/language/cupid-combinator/jest.config.ts",
+        "jestConfig": "libs/language/cupid-combinator/jest.config.js",
         "passWithNoTests": true
       }
     }

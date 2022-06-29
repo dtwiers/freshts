@@ -1,6 +1,5 @@
-/* eslint-disable */
-export default {
-  displayName: 'utility-compose',
+module.exports = {
+  displayName: 'language-honest-lisp-data',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -12,5 +11,5 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/utility/compose',
+  coverageDirectory: '../../../coverage/libs/language/honest-lisp-data',
 };

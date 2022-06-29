@@ -1,5 +1,5 @@
 {
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "root": "libs/utility/nonempty-array",
   "sourceRoot": "libs/utility/nonempty-array/src",
   "targets": {
     "build": {
@@ -23,7 +23,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/utility/nonempty-array"],
       "options": {
-        "jestConfig": "libs/utility/nonempty-array/jest.config.ts",
+        "jestConfig": "libs/utility/nonempty-array/jest.config.js",
         "passWithNoTests": true
       }
     }

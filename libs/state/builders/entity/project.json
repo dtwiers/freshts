@@ -1,5 +1,5 @@
 {
-  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "root": "libs/state/builders/entity",
   "sourceRoot": "libs/state/builders/entity/src",
   "targets": {
     "build": {
@@ -23,7 +23,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/state/builders/entity"],
       "options": {
-        "jestConfig": "libs/state/builders/entity/jest.config.ts",
+        "jestConfig": "libs/state/builders/entity/jest.config.js",
         "passWithNoTests": true
       }
     }

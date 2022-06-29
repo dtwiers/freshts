@@ -1,15 +1,15 @@
-/* eslint-disable */
-export default {
-  displayName: 'state-async',
-  preset: '../../../../jest.preset.js',
+module.exports = {
+  displayName: 'utility-compose',
+  preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
+  testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../../coverage/libs/state/builders/async',
+  coverageDirectory: '../../../coverage/libs/utility/compose',
 };

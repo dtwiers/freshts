@@ -1,6 +1,5 @@
-/* eslint-disable */
-export default {
-  displayName: 'state-adaptors-record',
+module.exports = {
+  displayName: 'state-builders-common',
   preset: '../../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +10,5 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../../coverage/libs/state/adaptors/record',
+  coverageDirectory: '../../../../coverage/libs/state/builders/common',
 };

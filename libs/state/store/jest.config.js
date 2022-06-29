@@ -1,6 +1,5 @@
-/* eslint-disable */
-export default {
-  displayName: 'language-cupid-combinator',
+module.exports = {
+  displayName: 'state-store',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -12,5 +11,5 @@ export default {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/language/cupid-combinator',
+  coverageDirectory: '../../../coverage/libs/state/store',
 };
