@@ -41,6 +41,7 @@
       "@freshts/option": ["libs/utility/option/src/index.ts"],
       "@freshts/record": ["libs/utility/record/src/index.ts"],
       "@freshts/result": ["libs/utility/result/src/index.ts"],
+      "@freshts/types": ["libs/utility/types/src/index.ts"],
       "@honest-lisp/core": ["libs/language/honest-lisp-core/src/index.ts"],
       "@honest-lisp/data": ["libs/language/honest-lisp-data/src/index.ts"],
       "@honest-lisp/parser": ["libs/language/honest-lisp-parser/src/index.ts"],

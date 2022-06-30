@@ -1,51 +1,48 @@
 import { Action } from '@eezo-state/store';
 
-export type ActionBehavior =
-  | 'append'
-  | 'replace'
+export type ActionBehavior = 'append' | 'replace';
 
 export type AsyncAction<
   ActionBaseType extends string,
   Subtype extends string,
   PayloadType,
-  FilterMetadata,
-  PayloadMetadata
+  FilterMetadata = undefined
 > = Action<
-  {
-    type: `${ActionBaseType}:${Subtype}`;
-    meta: FilterMetadata;
-    behavior?: ActionBehavior;
-  },
-  {
-    data: PayloadType;
-    meta: PayloadMetadata;
-  }
+  FilterMetadata extends undefined
+    ? {
+        type: `${ActionBaseType}:${Subtype}`;
+        behavior?: ActionBehavior;
+      }
+    : {
+        type: `${ActionBaseType}:${Subtype}`;
+        meta: FilterMetadata;
+        behavior?: ActionBehavior;
+      },
+  PayloadType
 >;
 
 export type AsyncStartReplaceAction<
   ActionBaseType extends string,
   PayloadType,
-  FilterMetadata = void,
-  PayloadMetadata = void
-> = AsyncAction<ActionBaseType, 'Start:Replace', PayloadType, FilterMetadata, PayloadMetadata>;
+  FilterMetadata = undefined
+> = AsyncAction<ActionBaseType, 'Start:Replace', PayloadType, FilterMetadata>;
 
 export type AsyncStartAppendAction<
   ActionBaseType extends string,
   PayloadType,
-  FilterMetadata = void,
-  PayloadMetadata = void
-> = AsyncAction<ActionBaseType, 'Start:Append', PayloadType, FilterMetadata, PayloadMetadata>;
+  FilterMetadata = undefined
+> = AsyncAction<ActionBaseType, 'Start:Append', PayloadType, FilterMetadata>;
 
-export type AsyncSucceedAction<
-  ActionBaseType extends string,
+export type AsyncSucceedAction<ActionBaseType extends string, PayloadType, FilterMetadata = undefined> = AsyncAction<
+  ActionBaseType,
+  'Succeed',
   PayloadType,
-  FilterMetadata = void,
-  PayloadMetadata = void
-> = AsyncAction<ActionBaseType, 'Succeed', PayloadType, FilterMetadata, PayloadMetadata>;
+  FilterMetadata
+>;
 
-export type AsyncFailAction<
-  ActionBaseType extends string,
+export type AsyncFailAction<ActionBaseType extends string, PayloadType, FilterMetadata = undefined> = AsyncAction<
+  ActionBaseType,
+  'Fail',
   PayloadType,
-  FilterMetadata = void,
-  PayloadMetadata = void
-> = AsyncAction<ActionBaseType, 'Fail', PayloadType, FilterMetadata, PayloadMetadata>;
+  FilterMetadata
+>;

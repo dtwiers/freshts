@@ -23,6 +23,7 @@
     "utility-nonempty-array": "libs/utility/nonempty-array",
     "utility-option": "libs/utility/option",
     "utility-record": "libs/utility/record",
-    "utility-result": "libs/utility/result"
+    "utility-result": "libs/utility/result",
+    "utility-types": "libs/utility/types"
   }
 }

@@ -1,4 +1,8 @@
 {
   "name": "@eezo-state/async",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@eezo-state/store": "0.0.1",
+    "rxjs": "^7.5.5"
+  }
 }
