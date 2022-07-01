@@ -25,4 +25,12 @@ export type CreateAsyncEffectOptions<
     : Partial<HasMapOnSuccess<CallbackOutput, SuccessType | IdleType, SuccessType>>) &
   Partial<HasMapOnFailure<FailureType, FailureType>>;
 
-export const createAsyncEffect = <TriggerActionType extends AnyAction>() => {};
+export const createAsyncEffect = <
+  SuccessType,
+  FailureType,
+  IdleType,
+  TriggerActionType extends AnyAction,
+  CallbackOutput = SuccessType
+>(
+  options: CreateAsyncEffectOptions<SuccessType, FailureType, IdleType, TriggerActionType, CallbackOutput>
+) => {};
