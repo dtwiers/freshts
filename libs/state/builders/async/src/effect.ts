@@ -1,4 +1,4 @@
-import { AnyAction } from '@eezo-state/store';
+import { AnyAction, Effect } from '@eezo-state/store';
 import {
   HasAsyncCallback,
   HasFailureType,
@@ -8,6 +8,7 @@ import {
   HasSuccessType,
   HasTriggeringAction,
 } from '@eezo-state/common';
+import { AsyncState } from './state.types';
 
 export type CreateAsyncEffectOptions<
   SuccessType,
@@ -33,4 +34,10 @@ export const createAsyncEffect = <
   CallbackOutput = SuccessType
 >(
   options: CreateAsyncEffectOptions<SuccessType, FailureType, IdleType, TriggerActionType, CallbackOutput>
-) => {};
+): Effect<AsyncState<IdleType, SuccessType, FailureType>> => {
+  const startEffect: Effect<AsyncState<IdleType, SuccessType, FailureType>> = (action$, state$) => action$.pipe()
+  const resultEffect: Effect<AsyncState<IdleType, SuccessType, FailureType>> = (action$, state$) => action$.pipe()
+  
+  // TODO: make a combineEffects function
+  return {} as any;
+};
