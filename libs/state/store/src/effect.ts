@@ -1,9 +1,22 @@
-import { NonEmptyArray } from '@freshts/nonempty-array';
-import { filter, Observable } from 'rxjs';
-import { AnyAction } from './action.types';
+import type { Lens } from '@eezo-optics/lens';
+import type { NonEmptyArray } from '@freshts/nonempty-array';
+import { filter, map, merge, Observable } from 'rxjs';
+import type { AnyAction } from './action.types';
 import type { ActionMatcher } from './matchers.types';
+import type { Effect } from './store.types';
 
 export const ofType =
   <ActionType extends AnyAction>(...matchers: NonEmptyArray<ActionMatcher<ActionType>>) =>
   (source: Observable<AnyAction>) =>
     source.pipe(filter((action): action is ActionType => matchers.some((matcher) => matcher(action))));
+
+export const combineEffects =
+  <StateType>(...effects: Effect<StateType>[]): Effect<StateType> =>
+  (action$, state$) =>
+    merge(...effects.map((effect) => effect(action$, state$)));
+
+export const wrapEffectWithLens =
+  <GlobalStateType, InnerStateType>(lens: Lens<GlobalStateType, InnerStateType>) =>
+  (effect: Effect<InnerStateType>): Effect<GlobalStateType> =>
+  (action$, state$) =>
+    effect(action$, state$.pipe(map(lens.get)));

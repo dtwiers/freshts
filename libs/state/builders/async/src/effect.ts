@@ -1,4 +1,4 @@
-import { AnyAction, Effect } from '@eezo-state/store';
+import { AnyAction, Effect, ofType } from '@eezo-state/store';
 import {
   HasAsyncCallback,
   HasFailureType,
@@ -9,8 +9,12 @@ import {
   HasTriggeringAction,
 } from '@eezo-state/common';
 import { AsyncState } from './state.types';
+import { map } from 'rxjs';
+import { makeAsyncStart } from './actions';
+import { HasBuilderName } from './builder.types';
 
 export type CreateAsyncEffectOptions<
+  BuilderNameType extends string,
   SuccessType,
   FailureType,
   IdleType,
@@ -24,20 +28,26 @@ export type CreateAsyncEffectOptions<
   (CallbackOutput extends SuccessType
     ? HasMapOnSuccess<CallbackOutput, SuccessType | IdleType, SuccessType>
     : Partial<HasMapOnSuccess<CallbackOutput, SuccessType | IdleType, SuccessType>>) &
-  Partial<HasMapOnFailure<FailureType, FailureType>>;
+  Partial<HasMapOnFailure<FailureType, FailureType>> &
+  HasBuilderName<BuilderNameType>;
 
 export const createAsyncEffect = <
+  BuilderNameType extends string,
   SuccessType,
   FailureType,
   IdleType,
   TriggerActionType extends AnyAction,
   CallbackOutput = SuccessType
 >(
-  options: CreateAsyncEffectOptions<SuccessType, FailureType, IdleType, TriggerActionType, CallbackOutput>
+  options: CreateAsyncEffectOptions<BuilderNameType, SuccessType, FailureType, IdleType, TriggerActionType, CallbackOutput>
 ): Effect<AsyncState<IdleType, SuccessType, FailureType>> => {
-  const startEffect: Effect<AsyncState<IdleType, SuccessType, FailureType>> = (action$, state$) => action$.pipe()
-  const resultEffect: Effect<AsyncState<IdleType, SuccessType, FailureType>> = (action$, state$) => action$.pipe()
-  
+  const startEffect: Effect<AsyncState<IdleType, SuccessType, FailureType>> = (action$, state$) =>
+    action$.pipe(
+      ofType(options.triggeringAction),
+      map((action) => makeAsyncStart({actionKey: options.builderName, filterMetadata}))
+    );
+  const resultEffect: Effect<AsyncState<IdleType, SuccessType, FailureType>> = (action$, state$) => action$.pipe();
+
   // TODO: make a combineEffects function
   return {} as any;
 };
