@@ -2,6 +2,23 @@ import { Action } from '@eezo-state/store';
 
 export type ActionBehavior = 'append' | 'replace';
 
+export type ActionFilter<
+  ActionBaseType extends string,
+  Subtype extends string,
+  FilterMetadata = undefined
+> = FilterMetadata extends undefined
+  ? {
+      type: ActionBaseType;
+      subtype: Subtype;
+      behavior?: ActionBehavior;
+    }
+  : {
+      type: ActionBaseType;
+      subtype: Subtype;
+      behavior?: ActionBehavior;
+      meta: FilterMetadata;
+    };
+
 export type AsyncAction<
   ActionBaseType extends string,
   Subtype extends string,
@@ -10,11 +27,13 @@ export type AsyncAction<
 > = Action<
   FilterMetadata extends undefined
     ? {
-        type: `${ActionBaseType}:${Subtype}`;
+        type: ActionBaseType;
+        subtype: Subtype;
         behavior?: ActionBehavior;
       }
     : {
-        type: `${ActionBaseType}:${Subtype}`;
+        type: ActionBaseType;
+        subtype: Subtype;
         meta: FilterMetadata;
         behavior?: ActionBehavior;
       },
@@ -43,6 +62,13 @@ export type AsyncSucceedAction<ActionBaseType extends string, PayloadType, Filte
 export type AsyncFailAction<ActionBaseType extends string, PayloadType, FilterMetadata = undefined> = AsyncAction<
   ActionBaseType,
   'Fail',
+  PayloadType,
+  FilterMetadata
+>;
+
+export type AsyncRevertAction<ActionBaseType extends string, PayloadType, FilterMetadata = undefined> = AsyncAction<
+  ActionBaseType,
+  'Revert',
   PayloadType,
   FilterMetadata
 >;
