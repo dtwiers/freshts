@@ -11,7 +11,7 @@ import {
 import { AsyncState } from './state.types';
 import { map } from 'rxjs';
 import { makeAsyncStart } from './actions';
-import { HasBuilderName } from './builder.types';
+import { HasBuilderName, HasFilterMetadata } from './builder.types';
 
 export type CreateAsyncEffectOptions<
   BuilderNameType extends string,
@@ -29,7 +29,7 @@ export type CreateAsyncEffectOptions<
     ? HasMapOnSuccess<CallbackOutput, SuccessType | IdleType, SuccessType>
     : Partial<HasMapOnSuccess<CallbackOutput, SuccessType | IdleType, SuccessType>>) &
   Partial<HasMapOnFailure<FailureType, FailureType>> &
-  HasBuilderName<BuilderNameType>;
+  HasBuilderName<BuilderNameType> & HasFilterMetadata
 
 export const createAsyncEffect = <
   BuilderNameType extends string,
@@ -44,7 +44,7 @@ export const createAsyncEffect = <
   const startEffect: Effect<AsyncState<IdleType, SuccessType, FailureType>> = (action$, state$) =>
     action$.pipe(
       ofType(options.triggeringAction),
-      map((action) => makeAsyncStart({actionKey: options.builderName, filterMetadata}))
+      map((action) => makeAsyncStart({actionKey: options.builderName, filterMetadata: options.fil}))
     );
   const resultEffect: Effect<AsyncState<IdleType, SuccessType, FailureType>> = (action$, state$) => action$.pipe();
 
