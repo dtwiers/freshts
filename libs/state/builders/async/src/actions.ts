@@ -1,6 +1,7 @@
 import { ActionCreator, createActionCreator } from '@eezo-state/store';
 import {
   ActionFilter,
+  AsyncFailActionFilter,
   AsyncStartAction,
   AsyncStartActionFilter,
   AsyncSucceedActionFilter,
@@ -11,7 +12,7 @@ export type MakeAsyncStartOptions<ActionKeyType extends string, FilterMetadataTy
   actionKey: ActionKeyType;
   meta?: FilterMetadataType;
   loadBehavior?: LoadBehavior;
-} & (FilterMetadataType extends unknown ? {} : { meta: FilterMetadataType });
+};
 
 export const makeAsyncStart = <ActionKeyType extends string, PayloadType, FilterMetadataType = undefined>(
   options: MakeAsyncStartOptions<ActionKeyType, FilterMetadataType>
@@ -26,12 +27,12 @@ export const makeAsyncStart = <ActionKeyType extends string, PayloadType, Filter
     callback: (payload: PayloadType) => payload,
   });
 
-export type MakeAsyncSuccessOptions<ActionKeyType extends string, FilterMetadataType> = {
+export type MakeAsyncActionOptions<ActionKeyType extends string, FilterMetadataType> = {
   actionKey: ActionKeyType;
   meta?: FilterMetadataType;
 };
 export const makeAsyncSuccess = <ActionKeyType extends string, PayloadType, FilterMetadataType = undefined>(
-  options: MakeAsyncSuccessOptions<ActionKeyType, FilterMetadataType>
+  options: MakeAsyncActionOptions<ActionKeyType, FilterMetadataType>
 ): ActionCreator<AsyncSucceedActionFilter<ActionKeyType, FilterMetadataType>, PayloadType> =>
   createActionCreator(
     {
@@ -42,6 +43,20 @@ export const makeAsyncSuccess = <ActionKeyType extends string, PayloadType, Filt
       },
       callback: (payload: PayloadType) => payload,
     },
-    // TODO: clear up meta tostring logic
-    (action) => `${action.filter.type}:${action.filter.asyncAction}:${action.filter.meta}`
+    (action) => `${action.filter.type}:${action.filter.asyncAction}`
+  );
+
+export const makeAsyncFailure = <ActionKeyType extends string, PayloadType, FilterMetadataType = undefined>(
+  options: MakeAsyncActionOptions<ActionKeyType, FilterMetadataType>
+): ActionCreator<AsyncFailActionFilter<ActionKeyType, FilterMetadataType>, PayloadType> =>
+  createActionCreator(
+    {
+      filter: {
+        type: options.actionKey,
+        asyncAction: 'Fail',
+        meta: options.meta as FilterMetadataType,
+      },
+      callback: (payload: PayloadType) => payload,
+    },
+    (action) => `${action.filter.type}:${action.filter.asyncAction}`
   );

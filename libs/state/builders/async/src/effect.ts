@@ -9,7 +9,7 @@ import {
   HasTriggeringAction,
 } from '@eezo-state/common';
 import { AsyncState } from './state.types';
-import { map } from 'rxjs';
+import { map, withLatestFrom } from 'rxjs';
 import { makeAsyncStart } from './actions';
 import { HasBuilderName, HasFilterMetadata } from './builder.types';
 
@@ -19,7 +19,8 @@ export type CreateAsyncEffectOptions<
   FailureType,
   IdleType,
   TriggerActionType extends AnyAction,
-  CallbackOutput
+  CallbackOutput,
+  FilterMetadataType = undefined
 > = HasSuccessType<SuccessType> &
   HasFailureType<FailureType> &
   HasIdleType<IdleType> &
@@ -29,7 +30,8 @@ export type CreateAsyncEffectOptions<
     ? HasMapOnSuccess<CallbackOutput, SuccessType | IdleType, SuccessType>
     : Partial<HasMapOnSuccess<CallbackOutput, SuccessType | IdleType, SuccessType>>) &
   Partial<HasMapOnFailure<FailureType, FailureType>> &
-  HasBuilderName<BuilderNameType> & HasFilterMetadata
+  HasBuilderName<BuilderNameType> &
+  Partial<HasFilterMetadata<FilterMetadataType>>;
 
 export const createAsyncEffect = <
   BuilderNameType extends string,
@@ -37,14 +39,30 @@ export const createAsyncEffect = <
   FailureType,
   IdleType,
   TriggerActionType extends AnyAction,
-  CallbackOutput = SuccessType
+  CallbackOutput = SuccessType,
+  FilterMetadataType = undefined
 >(
-  options: CreateAsyncEffectOptions<BuilderNameType, SuccessType, FailureType, IdleType, TriggerActionType, CallbackOutput>
+  options: CreateAsyncEffectOptions<
+    BuilderNameType,
+    SuccessType,
+    FailureType,
+    IdleType,
+    TriggerActionType,
+    CallbackOutput,
+    FilterMetadataType
+  >
 ): Effect<AsyncState<IdleType, SuccessType, FailureType>> => {
   const startEffect: Effect<AsyncState<IdleType, SuccessType, FailureType>> = (action$, state$) =>
     action$.pipe(
       ofType(options.triggeringAction),
-      map((action) => makeAsyncStart({actionKey: options.builderName, filterMetadata: options.fil}))
+      withLatestFrom(state$),
+      map(([, state]) => {
+        return makeAsyncStart({
+          actionKey: options.builderName,
+          loadBehavior: 'replace', // TODO: Don't hardcode this
+          meta: options.filterMetadata as FilterMetadataType,
+        }).create(state.payload);
+      })
     );
   const resultEffect: Effect<AsyncState<IdleType, SuccessType, FailureType>> = (action$, state$) => action$.pipe();
 
