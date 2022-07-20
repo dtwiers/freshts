@@ -1,6 +1,5 @@
 import type { Lens } from '@eezo-optics/lens';
 import { ActionMatcher, AnyAction } from '@eezo-state/store';
-import { MaybePromise } from '@freshts/types';
 
 export type HasLens<GlobalStateType, TargetType> = {
   lens: Lens<GlobalStateType, TargetType>;
@@ -37,7 +36,7 @@ export type HasMapOnFailure<InputStateFailureType, OutputStateFailureType> = {
 };
 
 export type HasAsyncCallback<InputActionType extends AnyAction, OutputType> = {
-  asyncCallback: (input: InputActionType) => MaybePromise<OutputType>;
+  asyncCallback: (input: InputActionType) => Promise<OutputType>;
 };
 
 export type HasPrediction<InputType, InputStateType, OutputStateType> = {

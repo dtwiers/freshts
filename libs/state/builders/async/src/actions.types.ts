@@ -1,4 +1,5 @@
-import { Action } from '@eezo-state/store';
+import type { Action } from '@eezo-state/store';
+import type { FAIL_ACTION_TAG, REVERT_ACTION_TAG, START_ACTION_TAG, SUCCEED_ACTION_TAG } from './constants';
 
 export type LoadBehavior = 'append' | 'replace';
 
@@ -12,7 +13,7 @@ export type WithLoadBehavior = { loadBehavior: LoadBehavior };
 
 export type AsyncStartActionFilter<ActionBaseType extends string, FilterMetadataType = undefined> = ActionFilter<
   ActionBaseType,
-  'Start',
+  typeof START_ACTION_TAG,
   FilterMetadataType
 > &
   WithLoadBehavior;
@@ -24,7 +25,7 @@ export type AsyncStartAction<ActionBaseType extends string, PayloadType, FilterM
 
 export type AsyncSucceedActionFilter<ActionBaseType extends string, FilterMetadataType = undefined> = ActionFilter<
   ActionBaseType,
-  'Succeed',
+  typeof SUCCEED_ACTION_TAG,
   FilterMetadataType
 >;
 export type AsyncSucceedAction<ActionBaseType extends string, PayloadType, FilterMetadataType = undefined> = Action<
@@ -34,7 +35,7 @@ export type AsyncSucceedAction<ActionBaseType extends string, PayloadType, Filte
 
 export type AsyncFailActionFilter<ActionBaseType extends string, FilterMetadataType = undefined> = ActionFilter<
   ActionBaseType,
-  'Fail',
+  typeof FAIL_ACTION_TAG,
   FilterMetadataType
 >;
 export type AsyncFailAction<ActionBaseType extends string, PayloadType, FilterMetadataType = undefined> = Action<
@@ -44,7 +45,7 @@ export type AsyncFailAction<ActionBaseType extends string, PayloadType, FilterMe
 
 export type AsyncRevertActionFilter<ActionBaseType extends string, FilterMetadataType = undefined> = ActionFilter<
   ActionBaseType,
-  'Revert',
+  typeof REVERT_ACTION_TAG,
   FilterMetadataType
 >;
 export type AsyncRevertAction<ActionBaseType extends string, PayloadType, FilterMetadataType = undefined> = Action<

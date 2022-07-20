@@ -2,11 +2,13 @@ import { ActionCreator, createActionCreator } from '@eezo-state/store';
 import {
   ActionFilter,
   AsyncFailActionFilter,
+  AsyncRevertActionFilter,
   AsyncStartAction,
   AsyncStartActionFilter,
   AsyncSucceedActionFilter,
   LoadBehavior,
 } from './actions.types';
+import { START_ACTION_TAG } from './constants';
 
 export type MakeAsyncStartOptions<ActionKeyType extends string, FilterMetadataType> = {
   actionKey: ActionKeyType;
@@ -20,7 +22,7 @@ export const makeAsyncStart = <ActionKeyType extends string, PayloadType, Filter
   createActionCreator({
     filter: {
       type: options.actionKey,
-      asyncAction: 'Start',
+      asyncAction: START_ACTION_TAG,
       loadBehavior: options.loadBehavior ?? 'replace',
       meta: options.meta as FilterMetadataType,
     },
@@ -54,6 +56,21 @@ export const makeAsyncFailure = <ActionKeyType extends string, PayloadType, Filt
       filter: {
         type: options.actionKey,
         asyncAction: 'Fail',
+        meta: options.meta as FilterMetadataType,
+      },
+      callback: (payload: PayloadType) => payload,
+    },
+    (action) => `${action.filter.type}:${action.filter.asyncAction}`
+  );
+
+export const makeAsyncRevert = <ActionKeyType extends string, PayloadType, FilterMetadataType = undefined>(
+  options: MakeAsyncActionOptions<ActionKeyType, FilterMetadataType>
+): ActionCreator<AsyncRevertActionFilter<ActionKeyType, FilterMetadataType>, PayloadType> =>
+  createActionCreator(
+    {
+      filter: {
+        type: options.actionKey,
+        asyncAction: 'Revert',
         meta: options.meta as FilterMetadataType,
       },
       callback: (payload: PayloadType) => payload,

@@ -1,4 +1,4 @@
-import { AnyAction, Effect, ofType } from '@eezo-state/store';
+import { AnyAction, combineEffects, Effect, ofType } from '@eezo-state/store';
 import {
   HasAsyncCallback,
   HasFailureType,
@@ -8,10 +8,12 @@ import {
   HasSuccessType,
   HasTriggeringAction,
 } from '@eezo-state/common';
-import { AsyncState } from './state.types';
-import { map, withLatestFrom } from 'rxjs';
-import { makeAsyncStart } from './actions';
-import { HasBuilderName, HasFilterMetadata } from './builder.types';
+import { AsyncFailureState, AsyncState } from './state.types';
+import { from, map, switchMap, withLatestFrom } from 'rxjs';
+import { makeAsyncFailure, makeAsyncRevert, makeAsyncStart, makeAsyncSuccess } from './actions';
+import { HasBuilderName, HasFilterMetadata, HasLoadBehavior, HasOptimisticPrediction } from './builder.types';
+import { extractResult, fail, mapOk, ok, Result } from '@freshts/result';
+import { pipe } from '@freshts/compose';
 
 export type CreateAsyncEffectOptions<
   BuilderNameType extends string,
@@ -29,9 +31,13 @@ export type CreateAsyncEffectOptions<
   (CallbackOutput extends SuccessType
     ? HasMapOnSuccess<CallbackOutput, SuccessType | IdleType, SuccessType>
     : Partial<HasMapOnSuccess<CallbackOutput, SuccessType | IdleType, SuccessType>>) &
-  Partial<HasMapOnFailure<FailureType, FailureType>> &
   HasBuilderName<BuilderNameType> &
-  Partial<HasFilterMetadata<FilterMetadataType>>;
+  Partial<
+    HasMapOnFailure<FailureType, FailureType> &
+      HasFilterMetadata<FilterMetadataType> &
+      HasLoadBehavior &
+      HasOptimisticPrediction<TriggerActionType['payload'], SuccessType, IdleType>
+  >;
 
 export const createAsyncEffect = <
   BuilderNameType extends string,
@@ -52,20 +58,56 @@ export const createAsyncEffect = <
     FilterMetadataType
   >
 ): Effect<AsyncState<IdleType, SuccessType, FailureType>> => {
+  const actionCreatorDeps = {
+    actionKey: options.builderName,
+    meta: options.filterMetadata as FilterMetadataType,
+  };
   const startEffect: Effect<AsyncState<IdleType, SuccessType, FailureType>> = (action$, state$) =>
     action$.pipe(
       ofType(options.triggeringAction),
       withLatestFrom(state$),
-      map(([, state]) => {
+      map(([action, state]) => {
         return makeAsyncStart({
-          actionKey: options.builderName,
-          loadBehavior: 'replace', // TODO: Don't hardcode this
-          meta: options.filterMetadata as FilterMetadataType,
-        }).create(state.payload);
+          ...actionCreatorDeps,
+          loadBehavior: state.status !== 'idle' && options.loadBehavior ? options.loadBehavior : 'replace',
+        }).create(options.prediction ? options.prediction(action.payload)(state.payload) : state.payload);
       })
     );
-  const resultEffect: Effect<AsyncState<IdleType, SuccessType, FailureType>> = (action$, state$) => action$.pipe();
 
-  // TODO: make a combineEffects function
-  return {} as any;
+  const mainEffect: Effect<AsyncState<IdleType, SuccessType, FailureType>> = (action$, state$) =>
+    action$.pipe(
+      ofType(options.triggeringAction),
+      withLatestFrom(state$),
+      switchMap(([action, state]) =>
+        from<Promise<Result<CallbackOutput, FailureType>>>(options.asyncCallback(action).then(ok).catch(fail)).pipe(
+          map((result) => ({ result, oldState: state } as const))
+        )
+      ),
+      withLatestFrom(state$),
+      switchMap(([{ result, oldState }, newerState]) =>
+        pipe(
+          result,
+          extractResult<CallbackOutput, FailureType, AnyAction[]>(
+            (success) => [
+              makeAsyncSuccess(actionCreatorDeps).create(
+                options.mapOnSuccess ? options.mapOnSuccess(success)(newerState.payload) : success
+              ),
+            ],
+            (failure) => [
+              makeAsyncFailure(actionCreatorDeps).create(
+                options.mapOnFailure
+                  ? options.mapOnFailure(failure)(
+                      (newerState as AsyncFailureState<IdleType | SuccessType, FailureType>).failure
+                    )
+                  : failure
+              ),
+              ...(options.prediction ? [makeAsyncRevert(actionCreatorDeps).create(oldState)] : []),
+            ]
+          )
+        )
+      )
+    );
+
+  const asyncEffect = combineEffects(startEffect, mainEffect);
+  return asyncEffect;
 };
