@@ -8,70 +8,66 @@ import {
   AsyncSucceedActionFilter,
   LoadBehavior,
 } from './actions.types';
+import { HasBuilderName, HasFilterMetadata, HasLoadBehavior } from './builder.types';
 import { START_ACTION_TAG } from './constants';
 
-export type MakeAsyncStartOptions<ActionKeyType extends string, FilterMetadataType> = {
-  actionKey: ActionKeyType;
-  meta?: FilterMetadataType;
-  loadBehavior?: LoadBehavior;
-};
-
-export const makeAsyncStart = <ActionKeyType extends string, PayloadType, FilterMetadataType = undefined>(
-  options: MakeAsyncStartOptions<ActionKeyType, FilterMetadataType>
-): ActionCreator<AsyncStartActionFilter<ActionKeyType, FilterMetadataType>, PayloadType> =>
+export const buildAsyncStart = <BuilderNameType extends string, PayloadType, FilterMetadataType = undefined>(
+  options: HasBuilderName<BuilderNameType> & Partial<HasFilterMetadata<FilterMetadataType> & HasLoadBehavior>
+): ActionCreator<AsyncStartActionFilter<BuilderNameType, FilterMetadataType>, PayloadType> =>
   createActionCreator({
     filter: {
-      type: options.actionKey,
+      type: options.builderName,
       asyncAction: START_ACTION_TAG,
       loadBehavior: options.loadBehavior ?? 'replace',
-      meta: options.meta as FilterMetadataType,
+      meta: options.filterMetadata as FilterMetadataType,
     },
     callback: (payload: PayloadType) => payload,
   });
 
-export type MakeAsyncActionOptions<ActionKeyType extends string, FilterMetadataType> = {
-  actionKey: ActionKeyType;
-  meta?: FilterMetadataType;
-};
-export const makeAsyncSuccess = <ActionKeyType extends string, PayloadType, FilterMetadataType = undefined>(
-  options: MakeAsyncActionOptions<ActionKeyType, FilterMetadataType>
+export type MakeAsyncActionBuilder<
+  BuilderNameType extends string,
+  FilterMetadataType
+> = HasBuilderName<BuilderNameType> & Partial<HasFilterMetadata<FilterMetadataType>>;
+
+export const buildAsyncSuccess = <ActionKeyType extends string, PayloadType, FilterMetadataType = undefined>(
+  options: MakeAsyncActionBuilder<ActionKeyType, FilterMetadataType>
 ): ActionCreator<AsyncSucceedActionFilter<ActionKeyType, FilterMetadataType>, PayloadType> =>
   createActionCreator(
     {
       filter: {
-        type: options.actionKey,
+        type: options.builderName,
         asyncAction: 'Succeed',
-        meta: options.meta as FilterMetadataType,
+        meta: options.filterMetadata as FilterMetadataType,
       },
       callback: (payload: PayloadType) => payload,
     },
     (action) => `${action.filter.type}:${action.filter.asyncAction}`
   );
 
-export const makeAsyncFailure = <ActionKeyType extends string, PayloadType, FilterMetadataType = undefined>(
-  options: MakeAsyncActionOptions<ActionKeyType, FilterMetadataType>
+export const buildAsyncFailure = <ActionKeyType extends string, PayloadType, FilterMetadataType = undefined>(
+  options: MakeAsyncActionBuilder<ActionKeyType, FilterMetadataType>
 ): ActionCreator<AsyncFailActionFilter<ActionKeyType, FilterMetadataType>, PayloadType> =>
   createActionCreator(
     {
       filter: {
-        type: options.actionKey,
+        type: options.builderName,
         asyncAction: 'Fail',
-        meta: options.meta as FilterMetadataType,
+        meta: options.filterMetadata as FilterMetadataType,
       },
       callback: (payload: PayloadType) => payload,
     },
     (action) => `${action.filter.type}:${action.filter.asyncAction}`
   );
 
-export const makeAsyncRevert = <ActionKeyType extends string, PayloadType, FilterMetadataType = undefined>(
-  options: MakeAsyncActionOptions<ActionKeyType, FilterMetadataType>
+export const buildAsyncRevert = <ActionKeyType extends string, PayloadType, FilterMetadataType = undefined>(
+  options: MakeAsyncActionBuilder<ActionKeyType, FilterMetadataType>
 ): ActionCreator<AsyncRevertActionFilter<ActionKeyType, FilterMetadataType>, PayloadType> =>
   createActionCreator(
     {
       filter: {
-        type: options.actionKey,
+        type: options.builderName,
         asyncAction: 'Revert',
-        meta: options.meta as FilterMetadataType,
+        meta: options.filterMetadata as FilterMetadataType,
       },
       callback: (payload: PayloadType) => payload,
     },

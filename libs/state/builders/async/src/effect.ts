@@ -10,7 +10,7 @@ import {
 } from '@eezo-state/common';
 import { AsyncFailureState, AsyncState } from './state.types';
 import { from, map, switchMap, withLatestFrom } from 'rxjs';
-import { makeAsyncFailure, makeAsyncRevert, makeAsyncStart, makeAsyncSuccess } from './actions';
+import { buildAsyncFailure, buildAsyncRevert, buildAsyncStart, buildAsyncSuccess } from './actions';
 import { HasBuilderName, HasFilterMetadata, HasLoadBehavior, HasOptimisticPrediction } from './builder.types';
 import { extractResult, fail, mapOk, ok, Result } from '@freshts/result';
 import { pipe } from '@freshts/compose';
@@ -58,17 +58,17 @@ export const createAsyncEffect = <
     FilterMetadataType
   >
 ): Effect<AsyncState<IdleType, SuccessType, FailureType>> => {
-  const actionCreatorDeps = {
-    actionKey: options.builderName,
-    meta: options.filterMetadata as FilterMetadataType,
+  const actionCreatorBuilder = {
+    builderName: options.builderName,
+    filterMetadata: options.filterMetadata as FilterMetadataType,
   };
   const startEffect: Effect<AsyncState<IdleType, SuccessType, FailureType>> = (action$, state$) =>
     action$.pipe(
       ofType(options.triggeringAction),
       withLatestFrom(state$),
       map(([action, state]) => {
-        return makeAsyncStart({
-          ...actionCreatorDeps,
+        return buildAsyncStart({
+          ...actionCreatorBuilder,
           loadBehavior: state.status !== 'idle' && options.loadBehavior ? options.loadBehavior : 'replace',
         }).create(options.prediction ? options.prediction(action.payload)(state.payload) : state.payload);
       })
@@ -89,19 +89,19 @@ export const createAsyncEffect = <
           result,
           extractResult<CallbackOutput, FailureType, AnyAction[]>(
             (success) => [
-              makeAsyncSuccess(actionCreatorDeps).create(
+              buildAsyncSuccess(actionCreatorBuilder).create(
                 options.mapOnSuccess ? options.mapOnSuccess(success)(newerState.payload) : success
               ),
             ],
             (failure) => [
-              makeAsyncFailure(actionCreatorDeps).create(
+              buildAsyncFailure(actionCreatorBuilder).create(
                 options.mapOnFailure
                   ? options.mapOnFailure(failure)(
                       (newerState as AsyncFailureState<IdleType | SuccessType, FailureType>).failure
                     )
                   : failure
               ),
-              ...(options.prediction ? [makeAsyncRevert(actionCreatorDeps).create(oldState)] : []),
+              ...(options.prediction ? [buildAsyncRevert(actionCreatorBuilder).create(oldState)] : []),
             ]
           )
         )
