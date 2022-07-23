@@ -8,12 +8,22 @@ import {
   AsyncSucceedActionFilter,
   LoadBehavior,
 } from './actions.types';
-import { HasBuilderName, HasFilterMetadata, HasLoadBehavior } from './builder.types';
+import {
+  HasBuilderName,
+  HasFailureType,
+  HasFilterMetadata,
+  HasIdleType,
+  HasLoadBehavior,
+  HasSuccessType,
+} from './builder.types';
 import { START_ACTION_TAG } from './constants';
 
-export const buildAsyncStart = <BuilderNameType extends string, PayloadType, FilterMetadataType = undefined>(
-  options: HasBuilderName<BuilderNameType> & Partial<HasFilterMetadata<FilterMetadataType> & HasLoadBehavior>
-): ActionCreator<AsyncStartActionFilter<BuilderNameType, FilterMetadataType>, PayloadType> =>
+export const buildAsyncStart = <BuilderNameType extends string, IdleType, SuccessType, FilterMetadataType = undefined>(
+  options: HasBuilderName<BuilderNameType> &
+    Partial<HasFilterMetadata<FilterMetadataType> & HasLoadBehavior> &
+    HasIdleType<IdleType> &
+    HasSuccessType<SuccessType>
+): ActionCreator<AsyncStartActionFilter<BuilderNameType, FilterMetadataType>, IdleType | SuccessType> =>
   createActionCreator({
     filter: {
       type: options.builderName,
@@ -21,7 +31,7 @@ export const buildAsyncStart = <BuilderNameType extends string, PayloadType, Fil
       loadBehavior: options.loadBehavior ?? 'replace',
       meta: options.filterMetadata as FilterMetadataType,
     },
-    callback: (payload: PayloadType) => payload,
+    callback: (payload: IdleType | SuccessType) => payload,
   });
 
 export type MakeAsyncActionBuilder<
@@ -29,9 +39,9 @@ export type MakeAsyncActionBuilder<
   FilterMetadataType
 > = HasBuilderName<BuilderNameType> & Partial<HasFilterMetadata<FilterMetadataType>>;
 
-export const buildAsyncSuccess = <ActionKeyType extends string, PayloadType, FilterMetadataType = undefined>(
-  options: MakeAsyncActionBuilder<ActionKeyType, FilterMetadataType>
-): ActionCreator<AsyncSucceedActionFilter<ActionKeyType, FilterMetadataType>, PayloadType> =>
+export const buildAsyncSuccess = <ActionKeyType extends string, SuccessType, FilterMetadataType = undefined>(
+  options: MakeAsyncActionBuilder<ActionKeyType, FilterMetadataType> & HasSuccessType<SuccessType>
+): ActionCreator<AsyncSucceedActionFilter<ActionKeyType, FilterMetadataType>, SuccessType> =>
   createActionCreator(
     {
       filter: {
@@ -39,14 +49,14 @@ export const buildAsyncSuccess = <ActionKeyType extends string, PayloadType, Fil
         asyncAction: 'Succeed',
         meta: options.filterMetadata as FilterMetadataType,
       },
-      callback: (payload: PayloadType) => payload,
+      callback: (payload: SuccessType) => payload,
     },
     (action) => `${action.filter.type}:${action.filter.asyncAction}`
   );
 
-export const buildAsyncFailure = <ActionKeyType extends string, PayloadType, FilterMetadataType = undefined>(
-  options: MakeAsyncActionBuilder<ActionKeyType, FilterMetadataType>
-): ActionCreator<AsyncFailActionFilter<ActionKeyType, FilterMetadataType>, PayloadType> =>
+export const buildAsyncFailure = <ActionKeyType extends string, FailureType, FilterMetadataType = undefined>(
+  options: MakeAsyncActionBuilder<ActionKeyType, FilterMetadataType> & HasFailureType<FailureType>
+): ActionCreator<AsyncFailActionFilter<ActionKeyType, FilterMetadataType>, FailureType> =>
   createActionCreator(
     {
       filter: {
@@ -54,14 +64,22 @@ export const buildAsyncFailure = <ActionKeyType extends string, PayloadType, Fil
         asyncAction: 'Fail',
         meta: options.filterMetadata as FilterMetadataType,
       },
-      callback: (payload: PayloadType) => payload,
+      callback: (payload: FailureType) => payload,
     },
     (action) => `${action.filter.type}:${action.filter.asyncAction}`
   );
 
-export const buildAsyncRevert = <ActionKeyType extends string, PayloadType, FilterMetadataType = undefined>(
-  options: MakeAsyncActionBuilder<ActionKeyType, FilterMetadataType>
-): ActionCreator<AsyncRevertActionFilter<ActionKeyType, FilterMetadataType>, PayloadType> =>
+export const buildAsyncRevert = <
+  ActionKeyType extends string,
+  IdleType,
+  SuccessType,
+  FailureType,
+  FilterMetadataType = undefined
+>(
+  options: MakeAsyncActionBuilder<ActionKeyType, FilterMetadataType> &
+    HasIdleType<IdleType> &
+    HasSuccessType<SuccessType>
+): ActionCreator<AsyncRevertActionFilter<ActionKeyType, FilterMetadataType>, IdleType | SuccessType> =>
   createActionCreator(
     {
       filter: {
@@ -69,7 +87,7 @@ export const buildAsyncRevert = <ActionKeyType extends string, PayloadType, Filt
         asyncAction: 'Revert',
         meta: options.filterMetadata as FilterMetadataType,
       },
-      callback: (payload: PayloadType) => payload,
+      callback: (payload: IdleType | SuccessType) => payload,
     },
     (action) => `${action.filter.type}:${action.filter.asyncAction}`
   );
