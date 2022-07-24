@@ -1,0 +1,32 @@
+{
+  "root": "libs/state/integrations/eezo-state-react",
+  "sourceRoot": "libs/state/integrations/eezo-state-react/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/state/integrations/eezo-state-react",
+        "main": "libs/state/integrations/eezo-state-react/src/index.ts",
+        "tsConfig": "libs/state/integrations/eezo-state-react/tsconfig.lib.json",
+        "assets": ["libs/state/integrations/eezo-state-react/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/state/integrations/eezo-state-react/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/state/integrations/eezo-state-react"],
+      "options": {
+        "jestConfig": "libs/state/integrations/eezo-state-react/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -15,6 +15,7 @@
     "state-builders-common": "libs/state/builders/common",
     "state-builders-entity": "libs/state/builders/entity",
     "state-builders-record": "libs/state/builders/record",
+    "state-integrations-eezo-state-react": "libs/state/integrations/eezo-state-react",
     "state-store": "libs/state/store",
     "utility-arbitrate": "libs/utility/arbitrate",
     "utility-array": "libs/utility/array",

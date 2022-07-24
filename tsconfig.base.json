@@ -29,6 +29,7 @@
       "@eezo-state/async": ["libs/state/builders/async/src/index.ts"],
       "@eezo-state/common": ["libs/state/builders/common/src/index.ts"],
       "@eezo-state/entity": ["libs/state/builders/entity/src/index.ts"],
+      "@eezo-state/react": ["libs/state/integrations/eezo-state-react/src/index.ts"],
       "@eezo-state/record": ["libs/state/builders/record/src/index.ts"],
       "@eezo-state/store": ["libs/state/store/src/index.ts"],
       "@freshts/arbitrate": ["libs/utility/arbitrate/src/index.ts"],

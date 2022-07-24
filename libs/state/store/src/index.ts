@@ -4,5 +4,6 @@ export * from './effect';
 export * from './matchers';
 export * from './matchers.types';
 export * from './reducer';
+export * from './select';
 export * from './store';
 export * from './store.types';
