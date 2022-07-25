@@ -1,5 +1,5 @@
 {
-  "root": "libs/optics/prism",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/optics/prism/src",
   "targets": {
     "build": {
@@ -23,7 +23,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/optics/prism"],
       "options": {
-        "jestConfig": "libs/optics/prism/jest.config.js",
+        "jestConfig": "libs/optics/prism/jest.config.ts",
         "passWithNoTests": true
       }
     }

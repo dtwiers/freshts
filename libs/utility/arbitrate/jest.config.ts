@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'language-honest-lisp-data',
+/* eslint-disable */
+export default {
+  displayName: 'utility-arbitrate',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +12,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/language/honest-lisp-data',
+  coverageDirectory: '../../../coverage/libs/utility/arbitrate',
 };

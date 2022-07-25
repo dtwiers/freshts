@@ -1,5 +1,5 @@
 {
-  "root": "libs/state/integrations/eezo-state-react",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/state/integrations/eezo-state-react/src",
   "targets": {
     "build": {
@@ -23,7 +23,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/state/integrations/eezo-state-react"],
       "options": {
-        "jestConfig": "libs/state/integrations/eezo-state-react/jest.config.js",
+        "jestConfig": "libs/state/integrations/eezo-state-react/jest.config.ts",
         "passWithNoTests": true
       }
     }

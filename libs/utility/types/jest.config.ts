@@ -1,6 +1,7 @@
-module.exports = {
-  displayName: 'state-builders-common',
-  preset: '../../../../jest.preset.js',
+/* eslint-disable */
+export default {
+  displayName: 'utility-types',
+  preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
@@ -10,5 +11,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../../coverage/libs/state/builders/common',
+  coverageDirectory: '../../../coverage/libs/utility/types',
 };

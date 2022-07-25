@@ -1,14 +1,16 @@
-module.exports = {
-  displayName: 'utility-types',
+/* eslint-disable */
+export default {
+  displayName: 'utility-compose',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
+  testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/utility/types',
+  coverageDirectory: '../../../coverage/libs/utility/compose',
 };

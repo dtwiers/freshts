@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'utility-record',
+/* eslint-disable */
+export default {
+  displayName: 'language-cupid-combinator',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +12,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/utility/record',
+  coverageDirectory: '../../../coverage/libs/language/cupid-combinator',
 };

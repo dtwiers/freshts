@@ -1,5 +1,5 @@
 {
-  "root": "libs/optics/adapter",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/optics/adapter/src",
   "targets": {
     "build": {
@@ -23,7 +23,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/optics/adapter"],
       "options": {
-        "jestConfig": "libs/optics/adapter/jest.config.js",
+        "jestConfig": "libs/optics/adapter/jest.config.ts",
         "passWithNoTests": true
       }
     }

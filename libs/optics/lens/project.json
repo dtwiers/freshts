@@ -1,5 +1,5 @@
 {
-  "root": "libs/optics/lens",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/optics/lens/src",
   "targets": {
     "build": {
@@ -23,7 +23,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/optics/lens"],
       "options": {
-        "jestConfig": "libs/optics/lens/jest.config.js",
+        "jestConfig": "libs/optics/lens/jest.config.ts",
         "passWithNoTests": true
       }
     }

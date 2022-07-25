@@ -26,5 +26,6 @@
     "utility-record": "libs/utility/record",
     "utility-result": "libs/utility/result",
     "utility-types": "libs/utility/types"
-  }
+  },
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

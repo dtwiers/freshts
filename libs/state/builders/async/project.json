@@ -1,5 +1,5 @@
 {
-  "root": "libs/state/builders/async",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/state/builders/async/src",
   "targets": {
     "build": {
@@ -23,7 +23,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/state/builders/async"],
       "options": {
-        "jestConfig": "libs/state/builders/async/jest.config.js",
+        "jestConfig": "libs/state/builders/async/jest.config.ts",
         "passWithNoTests": true
       }
     }

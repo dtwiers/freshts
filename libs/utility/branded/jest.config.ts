@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'optics-prism',
+/* eslint-disable */
+export default {
+  displayName: 'utility-branded',
   preset: '../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -11,5 +12,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/libs/optics/prism',
+  coverageDirectory: '../../../coverage/libs/utility/branded',
 };

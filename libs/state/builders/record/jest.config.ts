@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'state-integrations-eezo-state-react',
+/* eslint-disable */
+export default {
+  displayName: 'state-adaptors-record',
   preset: '../../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -10,5 +11,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../../coverage/libs/state/integrations/eezo-state-react',
+  coverageDirectory: '../../../../coverage/libs/state/adaptors/record',
 };

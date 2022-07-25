@@ -1,5 +1,6 @@
-module.exports = {
-  displayName: 'state-entity',
+/* eslint-disable */
+export default {
+  displayName: 'state-integrations-eezo-state-react',
   preset: '../../../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -10,5 +11,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../../coverage/libs/state/entity',
+  coverageDirectory: '../../../../coverage/libs/state/integrations/eezo-state-react',
 };
