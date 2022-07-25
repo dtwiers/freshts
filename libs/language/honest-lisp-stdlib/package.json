@@ -1,5 +1,4 @@
 {
-  "name": "@honest-lisp/stdlib",
-  "version": "0.0.1",
-  "type": "commonjs"
+  "name": "@freshts/lisp-stdlib",
+  "version": "0.0.1"
 }

@@ -1,5 +1,4 @@
 {
-  "name": "@eezo-optics/lens",
-  "version": "0.0.1",
-  "type": "commonjs"
+  "name": "@freshts/optics-lens",
+  "version": "0.0.1"
 }

@@ -12,6 +12,18 @@
         "assets": ["libs/state/integrations/eezo-state-react/*.md"]
       }
     },
+    "publish": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs state-integrations-eezo-state-react {args.ver} {args.tag}"
+      },
+      "dependsOn": [
+        {
+          "projects": "self",
+          "target": "build"
+        }
+      ]
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
@@ -28,5 +40,5 @@
       }
     }
   },
-  "tags": []
+  "tags": ["publish"]
 }

@@ -1,5 +1,5 @@
-import type { Lens } from '@eezo-optics/lens';
-import { ActionMatcher, AnyAction } from '@eezo-state/store';
+import type { Lens } from '@freshts/optics-lens';
+import { ActionMatcher, AnyAction } from '@freshts/state';
 
 export type HasLens<GlobalStateType, TargetType> = {
   lens: Lens<GlobalStateType, TargetType>;

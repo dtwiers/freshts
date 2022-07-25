@@ -1,4 +1,4 @@
-import { ActionCreator, createActionCreator } from '@eezo-state/store';
+import { ActionCreator, createActionCreator } from '@freshts/state';
 import {
   ActionFilter,
   AsyncFailActionFilter,

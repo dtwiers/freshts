@@ -19,7 +19,7 @@ import {
   makeRegExpLiteral,
   makeStringLiteral,
   makeUndefinedLiteral,
-} from '@honest-lisp/core';
+} from '@freshts/lisp-core';
 import { escapeCharParser } from './string.util';
 
 // DELIMITERS

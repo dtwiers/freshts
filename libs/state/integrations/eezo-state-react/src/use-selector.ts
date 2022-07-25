@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { select, Store } from '@eezo-state/store';
+import { select, Store } from '@freshts/state';
 
 export const useSelector = <StateType, TargetType>(
   store: Store<StateType>,

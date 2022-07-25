@@ -1,5 +1,4 @@
 {
-  "name": "@eezo-state/react",
-  "version": "0.0.1",
-  "type": "commonjs"
+  "name": "@freshts/state-integrations-react",
+  "version": "0.0.1"
 }

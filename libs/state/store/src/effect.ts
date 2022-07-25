@@ -1,4 +1,4 @@
-import type { Lens } from '@eezo-optics/lens';
+import type { Lens } from '@freshts/optics-lens';
 import type { NonEmptyArray } from '@freshts/nonempty-array';
 import { filter, map, merge, Observable, OperatorFunction } from 'rxjs';
 import type { AnyAction } from './action.types';

@@ -1,8 +1,8 @@
 {
-  "name": "@eezo-state/async",
+  "name": "@freshts/state-builders-async",
   "version": "0.0.1",
   "peerDependencies": {
-    "@eezo-state/store": "0.0.1",
+    "@freshts/state": "0.0.1",
     "rxjs": "^7.5.5"
   }
 }

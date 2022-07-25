@@ -1,4 +1,4 @@
-import { AnyAction, combineEffects, Effect, ofType } from '@eezo-state/store';
+import { AnyAction, combineEffects, Effect, ofType } from '@freshts/state';
 import {
   HasAsyncCallback,
   HasFailureType,
@@ -7,7 +7,7 @@ import {
   HasMapOnSuccess,
   HasSuccessType,
   HasTriggeringAction,
-} from '@eezo-state/common';
+} from '@freshts/state-builders-common';
 import { AsyncFailureState, AsyncState } from './state.types';
 import { from, map, switchMap, withLatestFrom } from 'rxjs';
 import { buildAsyncFailure, buildAsyncRevert, buildAsyncStart, buildAsyncSuccess } from './actions';

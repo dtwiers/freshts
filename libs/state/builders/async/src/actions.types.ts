@@ -1,4 +1,4 @@
-import type { Action } from '@eezo-state/store';
+import type { Action } from '@freshts/state';
 import type { FAIL_ACTION_TAG, REVERT_ACTION_TAG, START_ACTION_TAG, SUCCEED_ACTION_TAG } from './constants';
 
 export type LoadBehavior = 'append' | 'replace';

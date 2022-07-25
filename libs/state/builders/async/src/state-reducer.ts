@@ -1,6 +1,6 @@
-import { StateReducer } from '@eezo-state/store';
+import type { StateReducer } from '@freshts/state';
 import { FAILURE_STATUS, IDLE_STATUS, LOADING_MORE_STATUS, LOADING_STATUS, SUCCESS_STATUS } from './constants';
-import { AsyncState } from './state.types';
+import type { AsyncState } from './state.types';
 
 export const createInitStateReducer =
   <PayloadType>(payload: PayloadType): StateReducer<AsyncState<PayloadType, never, never>> =>

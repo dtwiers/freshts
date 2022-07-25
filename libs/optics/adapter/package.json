@@ -1,5 +1,4 @@
 {
-  "name": "@foptic/adapter",
-  "version": "0.0.1",
-  "type": "commonjs"
+  "name": "@freshts/optics-adapter",
+  "version": "0.0.1"
 }

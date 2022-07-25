@@ -1,4 +1,4 @@
-import { ActionReducer, combineReducers, matchesToken, on } from '@eezo-state/store';
+import { ActionReducer, combineReducers, matchesToken, on } from '@freshts/state';
 import { applyWith, branch, pipe, spread } from '@freshts/compose';
 import { buildAsyncFailure, buildAsyncRevert, buildAsyncStart, buildAsyncSuccess } from './actions';
 import { HasBuilderName, HasFailureType, HasFilterMetadata, HasIdleType, HasSuccessType } from './builder.types';
@@ -66,4 +66,4 @@ export const buildCombinedActionReducer: ActionReducerBuilder = (builder) =>
     buildSuccessActionReducer(builder),
     buildFailureActionReducer(builder),
     buildRevertActionReducer(builder)
-  )
+  );
