@@ -27,13 +27,48 @@ export type StoreEvent = {
   message: string;
 };
 
+/**
+ * FreshTS Store. The Result of a `createStore()` call.
+ */
 export type Store<StateType> = {
+  /**
+   * An observable of actions, dispatched after reducers are finished pushing new state.
+   */
   action$: Observable<AnyAction>;
+
+  /**
+   * An observable of state. This is a BehaviorSubject behind the scenes, so `state$` is guaranteed
+   * emit the current state synchronously upon subscription.
+   */
   state$: Observable<StateType>;
+
+  /**
+   * An observable of StoreEvents to track "ancillary" events that may happen in a store's lifetime
+   * - registering additional reducers, effects, etc.
+   */
   storeEvent$: Observable<StoreEvent>;
+
+  /**
+   * A mutable property that when read is a way to get current state$ synchronously. This is useful
+   * to avoid a double-render in React and similar libraries. For the bulk of your state needs, you
+   * should use `state$`.
+   */
   state: StateType;
+
+  /**
+   * The primary way of pushing data to the store. This is very similar to the Redux dispatch function.
+   */
   dispatch: Dispatch;
+
+  /**
+   * For functions that need to know of a particular action dispatched but don't need the state and
+   * don't need to update anything - you can register a handler.
+   *
+   * @param handler The ActionHandler to register
+   * @returns void
+   */
   registerHandler: (handler: ActionHandler) => void;
+
   registerEffect: (effect: Effect<StateType>, options?: Partial<RegisterEffectOptions>) => Subscription;
   registerReducer: (reducer: ActionReducer<StateType>) => void;
   dispose: () => void;

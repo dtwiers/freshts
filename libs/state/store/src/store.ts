@@ -68,9 +68,9 @@ export const createStore = <StateType>(options: StoreOptions<StateType>): Store<
 
   logger.log('store created');
   return {
-    state$: state$.pipe(),
+    state$: state$.asObservable(),
     state: state$.value,
-    action$: action$.pipe(),
+    action$: postReducerAction$.asObservable(),
     dispatch: action$.next.bind(action$),
     registerReducer: (reducer) => {
       reducer$.next(reducer);
@@ -79,6 +79,6 @@ export const createStore = <StateType>(options: StoreOptions<StateType>): Store<
     registerEffect,
     registerHandler,
     dispose,
-    storeEvent$: storeEvent$.pipe(),
+    storeEvent$: storeEvent$.asObservable(),
   };
 };
