@@ -16,7 +16,7 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "noPropertyAccessFromIndexSignature": true,
+    "noPropertyAccessFromIndexSignature": false,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
     "strict": true,
@@ -41,12 +41,12 @@
       "@freshts/option": ["libs/utility/option/src/index.ts"],
       "@freshts/record": ["libs/utility/record/src/index.ts"],
       "@freshts/result": ["libs/utility/result/src/index.ts"],
+      "@freshts/state": ["libs/state/store/src/index.ts"],
       "@freshts/state-builders-async": ["libs/state/builders/async/src/index.ts"],
       "@freshts/state-builders-common": ["libs/state/builders/common/src/index.ts"],
       "@freshts/state-builders-entity": ["libs/state/builders/entity/src/index.ts"],
       "@freshts/state-builders-record": ["libs/state/builders/record/src/index.ts"],
       "@freshts/state-integrations-react": ["libs/state/integrations/eezo-state-react/src/index.ts"],
-      "@freshts/state": ["libs/state/store/src/index.ts"],
       "@freshts/types": ["libs/utility/types/src/index.ts"]
     }
   },

@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "freshts-docs": "apps/freshts-docs",
     "language-cupid-combinator": "libs/language/cupid-combinator",
     "language-honest-lisp-core": "libs/language/honest-lisp-core",
     "language-honest-lisp-data": "libs/language/honest-lisp-data",
