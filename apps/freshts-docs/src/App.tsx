@@ -5,7 +5,10 @@ function App() {
   return (
     <div class={styles.App}>
       <header class={styles.header}>
-        <img src={fresh} class={styles.logo} alt="logo" />
+        <div class={styles.headingContainer}>
+          <img src={fresh} class={styles.logo} alt="logo" />
+          <h1 class={styles.heading}>fresh-ts</h1>
+        </div>
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>

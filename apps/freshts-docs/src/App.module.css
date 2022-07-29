@@ -3,7 +3,7 @@
 }
 
 .logo {
-  height: 40vmin;
+  height: 8rem;
   pointer-events: none;
 }
 
@@ -22,11 +22,12 @@
   color: #b318f0;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.heading {
+  font-size: 3rem;
+}
+
+.headingContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
