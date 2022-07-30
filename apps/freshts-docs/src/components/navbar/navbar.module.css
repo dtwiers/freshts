@@ -1,0 +1,30 @@
+.header {
+  background-color: var(--color-accent);
+  height: 4rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 0.5rem;
+}
+
+.heading {
+  font-size: 2rem;
+  padding-left: 0.5rem;
+  color: var(--color-text-primary);
+}
+
+.nav {
+  margin-left: 1rem;
+  display: flex;
+}
+
+.link {
+  margin-left: 1.5rem;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  font-size: 1.25rem;
+}
+
+.logo {
+  height: 3rem;
+}

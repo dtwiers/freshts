@@ -7,6 +7,7 @@
   },
   "private": true,
   "dependencies": {
+    "@solidjs/router": "^0.4.2",
     "@types/react": "^18.0.15",
     "chalk": "^5.0.1",
     "fast-check": "^2.24.0",
